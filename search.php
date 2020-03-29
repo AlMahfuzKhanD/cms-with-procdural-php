@@ -15,9 +15,22 @@ include "includes/navigation.php";
             <div class="col-md-8">
 
                 <?php
-                $query = "SELECT * FROM posts";  //fetching data from posts table
-                $selectAllPostsQuery = mysqli_query($connection,$query); 
-                while($row = mysqli_fetch_assoc($selectAllPostsQuery)){  //collecting all data using while loop
+                if(isset($_POST['submit'])){
+
+                $search = $_POST['search'];
+
+                $query = "SELECT * FROM posts WHERE postTags LIKE '%$search%' "; //find specific posts using keyword "catagory"
+                $searchQuery = mysqli_query($connection, $query);
+                if(!$searchQuery){
+                    die("QUERY FAILED" . mysqli_error($connection));
+                }
+
+                $count = mysqli_num_rows($searchQuery);
+                if($count == 0){
+                    echo "<h1>No result </h1>";
+                }else{ 
+                   
+                while($row = mysqli_fetch_assoc($searchQuery)){  //searching keyword in the database
                         $postTitle = $row['postTitle'];
                         $postAuthor = $row['postAuthor'];
                         $postDate = $row['postDate'];
@@ -47,7 +60,16 @@ include "includes/navigation.php";
 
                 <hr>
 
-                <?php    } ?>
+                <?php    } 
+                }
+                }
+                ?>
+
+
+
+
+
+                
 
                 
 
