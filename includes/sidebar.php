@@ -23,13 +23,13 @@
 				<!-- Blog Categories Well -->
 				<div class="well">
 
-					<?php 
+				<?php 
 
-                $query = "SELECT * FROM catagories";
-                    $selectCatagoriesSidebar = mysqli_query($connection,$query);
-                    
+				$query = "SELECT * FROM catagories";
+				$selectCatagoriesSidebar = mysqli_query($connection,$query);
 
-                 ?>
+
+				?>
 
 
 
@@ -41,9 +41,9 @@
 								<?php 
 
 								while($row = mysqli_fetch_assoc($selectCatagoriesSidebar)){
-                    	$catTitle = $row['catTitle'];
-                    	echo "<li><a href='#'>{$catTitle}</a></>";
-                    }
+								$catTitle = $row['catTitle'];
+								echo "<li><a href='#'>{$catTitle}</a></>";
+								}
 
 								?>
 

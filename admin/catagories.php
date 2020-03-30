@@ -1,5 +1,6 @@
 <?php include "includes/admin_header.php"?>
 
+
     <div id="wrapper">
  
         <!-- Navigation -->
@@ -21,7 +22,10 @@
                         </h1>
 
                         <div class="col-xs-6">
-                            <form action="">
+                            
+                            <?php insert_catagories(); ?> <!--Inserting data into catagory table of Database -->
+
+                            <form action="" method="post">
                                 <label for="catTitle">Add Catagory</label>
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="catTitle">
@@ -29,7 +33,45 @@
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="submit" name="submit" value = "Add Catagory">
                                 </div>
-                            </form>
+                            </form><!-- Add catagory Form -->
+
+                            <?php //update and include query
+
+                            if(isset($_GET['edit'])){
+                                $catId = $_GET['edit'];
+                                include "update_catagories.php";
+                            } 
+
+
+                            ?>
+
+                            
+                        </div> 
+
+                        
+                         
+
+                        <div class="col-xs-6">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Catagory Title</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                <?php 
+ 
+                                findAllCatagories(); //Find All Catagories
+                                deleteCatagories(); // Delete query
+                                ?>
+
+
+
+                                    
+                                </tbody>
+                            </table>
                         </div>
                         
                     </div>
