@@ -1,8 +1,6 @@
 <?php include "includes/admin_header.php"?>
 
     <div id="wrapper">
-
-        
  
         <!-- Navigation -->
 
@@ -21,6 +19,18 @@
                             Welcome to Admin
                             <small>Author</small>
                         </h1>
+
+                        <div class="col-xs-6">
+                            <form action="">
+                                <label for="catTitle">Add Catagory</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="catTitle">
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn btn-primary" type="submit" name="submit" value = "Add Catagory">
+                                </div>
+                            </form>
+                        </div>
                         
                     </div>
                 </div>
