@@ -1,4 +1,14 @@
-<?php 
+<?php
+
+
+
+	function queryCheck($result){
+		global $connection;
+		if(!$result){
+		die("QUERY FAILED" . mysqli_error($connection));
+	}
+	}
+
 	function insert_catagories(){
 	global $connection;
 	if(isset($_POST['submit'])){
@@ -49,6 +59,8 @@ function deleteCatagories(){
                                     header("Location: catagories.php");
                                 }
 }
+
+
 
 
 
