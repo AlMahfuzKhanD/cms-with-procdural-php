@@ -20,50 +20,30 @@
                             <small>Author</small>
                         </h1>
 
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Author</th>
-                                    <th>Title</th>
-                                    <th>Catagory</th>
-                                    <th>Status</th>
-                                    <th>Image</th>
-                                    <th>Tags</th>
-                                    <th>Comments</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php 
+                        <?php 
 
-                                $query = "SELECT * FROM posts";
-                                $selectPosts = mysqli_query($connection,$query); //select all catagory data from database
+                        if(isset($_GET['source'])){
+                            $source = $_GET['source'];
+                        }else{
+                            $source = '';
+                        }
 
-                                while($row = mysqli_fetch_assoc($selectPosts)){ //fetching data usin loop
-                                $catId = $row['catId'];    
-                                $catTitle = $row['catTitle'];
-
-                            }
-
-
-                                ?>
-
-
-                                    <td>10</td>
-                                    <td>Edwin</td>
-                                    <td>Bootstrap</td>
-                                    <td>ddd</td>
-                                    <td>fff</td>
-                                    <td>ggg</td>
-                                    <td>hhh</td>
-                                    <td>rrr</td>
-                                    <td>eee</td>
-                                
-                            </tbody>
-
-
-                        </table>
+                        switch ($source) {
+                            case '23':
+                                # code...
+                                break;
+                            case '24':
+                                echo "Nice 23";
+                                break;
+                            case '23':
+                                # code...
+                                break; 
+                            
+                            default:
+                                include "includes/view_all_post.php";
+                                break;
+                        }
+                        ?>
 
                         
                         
