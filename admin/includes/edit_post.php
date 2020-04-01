@@ -81,9 +81,11 @@ if(isset($_POST['updatePost'])){
 	</div>
 
 	<div class="form-gorup">
+
+		<label for="postCatagory">Post Catagory</label>
 		
 
-		<select name="postCatagory" id="postCatagory">
+		<select class="form-control" name="postCatagory" id="postCatagory">
 			<?php
 
 			$query = "SELECT * FROM catagories";
