@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2020 at 01:28 PM
+-- Generation Time: Apr 01, 2020 at 10:12 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `catagories` (
-  `id` int(3) NOT NULL,
+  `catId` int(3) NOT NULL,
   `catTitle` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -37,9 +37,12 @@ CREATE TABLE `catagories` (
 -- Dumping data for table `catagories`
 --
 
-INSERT INTO `catagories` (`id`, `catTitle`) VALUES
+INSERT INTO `catagories` (`catId`, `catTitle`) VALUES
 (1, 'bootstrap'),
-(2, 'javascript');
+(3, 'test'),
+(4, 'ddd'),
+(5, 'sssxxx'),
+(6, 'dd');
 
 -- --------------------------------------------------------
 
@@ -61,6 +64,15 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`postId`, `postCatagoryId`, `postTitle`, `postAuthor`, `postDate`, `postImage`, `postContent`, `postTags`, `postCommentCount`, `postStatus`) VALUES
+(1, 1, 'Edwin cms course is awesome', 'Mahfuz', '2020-03-29', 'Desert.jpg', 'this is a good post', 'edwin, mahfuz', 1, 'draft'),
+(2, 4, 'titleedited', 'authoredited', '2020-04-01', 'Hydrangeas.jpg', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncove', 'java', 4, 'draft'),
+(3, 1, 'new post', 'me', '2020-04-01', 'Jellyfish.jpg', 'It is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zl It is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zl\r\nIt is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zl\r\nIt is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zl It is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zl It is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zl It is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zl It is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zl It is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zl It is a long established fact jljlzjk jljlj jjljccl lc xlzjckklz clzx clzjczljczl c zcjzlkcjzl czc zlcjzlc zlcjzlcjzl czlc zlcjzczclzc jlzxclzc zlc jzlcjzlcjzlczljzlzjlcljlzjclz lzzlzl j zlIt is a long established fact .that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a moreorless normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved', 'tags', 4, 'draft');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -68,7 +80,7 @@ CREATE TABLE `posts` (
 -- Indexes for table `catagories`
 --
 ALTER TABLE `catagories`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`catId`);
 
 --
 -- Indexes for table `posts`
@@ -84,13 +96,13 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `catagories`
 --
 ALTER TABLE `catagories`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `catId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postId` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `postId` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -27,7 +27,7 @@ include "includes/navigation.php";
                         $postAuthor = $row['postAuthor'];
                         $postDate = $row['postDate'];
                         $postImage = $row['postImage'];
-                        $postContent = $row['postContent'];
+                        $postContent = substr($row['postContent'], 0,100);
                         
                         ?>
 
