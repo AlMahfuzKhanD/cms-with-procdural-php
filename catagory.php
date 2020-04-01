@@ -15,7 +15,11 @@ include "includes/navigation.php";
             <div class="col-md-8">
 
                 <?php
-                $query = "SELECT * FROM posts";  //fetching data from posts table
+
+                if(isset($_GET['catagory'])){
+                    $postCatId = $_GET['catagory'];
+                }
+                $query = "SELECT * FROM posts WhERE postCatagoryId = $postCatId";  //fetching data from posts table
                 $selectAllPostsQuery = mysqli_query($connection,$query); 
                 while($row = mysqli_fetch_assoc($selectAllPostsQuery)){  //collecting all data using while loop
                         $postId = $row['postId'];

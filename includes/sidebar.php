@@ -42,7 +42,8 @@
 
 								while($row = mysqli_fetch_assoc($selectCatagoriesSidebar)){
 								$catTitle = $row['catTitle'];
-								echo "<li><a href='#'>{$catTitle}</a></>";
+								$catId = $row['catId'];
+								echo "<li><a href='catagory.php?catagory=$catId'>{$catTitle}</a></>";
 								}
 
 								?>
