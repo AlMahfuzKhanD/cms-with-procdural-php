@@ -11,7 +11,9 @@
 
 	                while($row = mysqli_fetch_assoc($selectCatagoriesUpdate)){ //fetching data usin loop
 		                $catId = $row['catId'];    
-		                $catTitle = $row['catTitle']; ?>
+		                $catTitle = $row['catTitle']; 
+
+                        ?>
 
 
 		                <input value="<?php if(isset($catTitle)) {echo $catTitle;}?>" type="text" class="form-control" name="catTitle">

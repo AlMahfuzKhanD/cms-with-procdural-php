@@ -6,7 +6,7 @@ if(isset($_GET['p_id'])){
 
 }
 
-$query = "SELECT * FROM posts";
+$query = "SELECT * FROM posts WHERE postId = {$getPostId}";
                                 $selectPostsById = mysqli_query($connection,$query); //select all postsdata from database
 
                                 while($row = mysqli_fetch_assoc($selectPostsById)){ //fetching data usin loop
@@ -26,6 +26,48 @@ $query = "SELECT * FROM posts";
 
 if(isset($_POST['updatePost'])){
 
+	$postTitle = $_POST['title'];
+	$postAuthor = $_POST['postAuthor'];
+	$postCatagoryId = $_POST['postCatagory'];
+	$postStatus = $_POST['postStatus'];
+
+	$postImage = $_FILES['postImage']['name'];
+	$postImageTemp = $_FILES['postImage']['tmp_name'];
+
+	$postTags = $_POST['postTags'];
+	$postContent = $_POST['postContent'];
+	move_uploaded_file($postImageTemp, "../images/$postImage");
+
+	if(empty($postImage)){
+
+		$query = "SELECT * FROM posts WHERE postId = $getPostId";
+		$selectImage = mysqli_query($connection, $query);
+		
+
+		while ($row = mysqli_fetch_array($selectImage)){
+            $postImage = $row['postImage'];
+        }
+
+
+	}
+
+	//update post query
+
+	$query = "UPDATE posts SET postTitle='{$postTitle}' ,";
+    $query .= "postCatagoryId='{$postCatagoryId}' ,";
+    $query .= "postDate= now(),";
+    $query .= "postAuthor='{$postAuthor}' ,";
+    $query .= "postStatus='{$postStatus}' ,";
+    $query .= "postTags='{$postTags}' ,";
+    $query .= "postContent='{$postContent}' ,";
+    $query .= "postImage='{$postImage}' ";
+    $query .= "WHERE postId={$getPostId}";
+
+    $update_post = mysqli_query($connection,$query);
+    queryCheck($update_post);
+
+    header("Location:posts.php");
+	
 
 } 
 
@@ -39,6 +81,7 @@ if(isset($_POST['updatePost'])){
 	</div>
 
 	<div class="form-gorup">
+		
 
 		<select name="postCatagory" id="postCatagory">
 			<?php
@@ -74,6 +117,8 @@ if(isset($_POST['updatePost'])){
 	</div>
 
 	<div class="form-gorup">
+		<label for="postImage">Post Image</label>
+		<input type="file" name="postImage">
 		<img width="100" src="../images/<?php echo $postImage;?>" alt="">
 	</div>
 
