@@ -1,73 +1,62 @@
-<?php
+<?php 
+if(isset($_GET['u_id'])){
+	$getUserId = $_GET['u_id'];
 
-if(isset($_GET['p_id'])){
-	$getPostId = $_GET['p_id'];
+	$query = "SELECT * FROM users WHERE userId = {$getUserId}";
+                                $selectUsersById = mysqli_query($connection,$query); //select all postsdata from database
+
+                                while($row = mysqli_fetch_assoc($selectUsersById)){ //fetching data usin loop
+                                    $userId = $row['userId'];
+                                    $userName = $row['userName'];    
+                                    
+                                    $userPassword = $row['userPassword'];
+                                    $userFirstName = $row['userFirstName'];
+                                    
+                                    $userLastName = $row['userLastName'];
+                                    $userEmail = $row['userEmail'];
+                                    $userImage = $row['userImage'];
+                                    $userRole = $row['userRole'];
+                                    $userStatus = $row['userStatus'];
+                                }
 
 
 }
 
-$query = "SELECT * FROM posts WHERE postId = {$getPostId}";
-                                $selectPostsById = mysqli_query($connection,$query); //select all postsdata from database
-
-                                while($row = mysqli_fetch_assoc($selectPostsById)){ //fetching data usin loop
-                                    $postId = $row['postId'];
-                                    $postAuthor = $row['postAuthor'];    
-                                    $postTitle = $row['postTitle'];
-                                    $postCatagoryId = $row['postCatagoryId'];
-                                    $postStatus = $row['postStatus'];
-                                    $postImage = $row['postImage'];
-                                    $postTags = $row['postTags'];
-                                    $postCommentCount = $row['postCommentCount'];
-                                    $postDate = $row['postDate'];
-                                    $postContent = $row['postContent'];
-                                }
+?>
 
 
+<?php
+if(isset($_POST['editUser'])){
 
-if(isset($_POST['updatePost'])){
+	 
+	$userFirstName = $_POST['userFirstName'];
+	$userLastName = $_POST['userLastName']; 
+	$userRole = $_POST['userRole'];
 
-	$postTitle = $_POST['title'];
-	$postAuthor = $_POST['postAuthor'];
-	$postCatagoryId = $_POST['postCatagory'];
-	$postStatus = $_POST['postStatus'];
+	// $useerImage = $_FILES['useerImage']['name'];
+	// $useerImageTemp = $_FILES['useerImage']['tmp_name'];
 
-	$postImage = $_FILES['postImage']['name'];
-	$postImageTemp = $_FILES['postImage']['tmp_name'];
-
-	$postTags = $_POST['postTags'];
-	$postContent = $_POST['postContent'];
-	move_uploaded_file($postImageTemp, "../images/$postImage");
-
-	if(empty($postImage)){
-
-		$query = "SELECT * FROM posts WHERE postId = $getPostId";
-		$selectImage = mysqli_query($connection, $query);
-		
-
-		while ($row = mysqli_fetch_array($selectImage)){
-            $postImage = $row['postImage'];
-        }
-
-
-	}
-
-	//update post query
-
-	$query = "UPDATE posts SET postTitle='{$postTitle}' ,";
-    $query .= "postCatagoryId='{$postCatagoryId}' ,";
-    $query .= "postDate= now(),";
-    $query .= "postAuthor='{$postAuthor}' ,";
-    $query .= "postStatus='{$postStatus}' ,";
-    $query .= "postTags='{$postTags}' ,";
-    $query .= "postContent='{$postContent}' ,";
-    $query .= "postImage='{$postImage}' ";
-    $query .= "WHERE postId={$getPostId}";
-
-    $update_post = mysqli_query($connection,$query);
-    queryCheck($update_post);
-
-    header("Location:posts.php");
+	$userName = $_POST['userName'];
+	$userEmail = $_POST['userEmail'];
+	$userPassword = $_POST['userPassword'];
+	//$postDate = date('d-m-y');
 	
+
+	//move_uploaded_file($postImageTemp, "../images/$postImage"); //upload image source to image folder
+
+	$query = "UPDATE users SET ";
+    $query .= "userFirstName = '{$userFirstName}', ";
+    $query .= "userLastName = '{$userLastName}', ";
+    $query .= "userRole = '{$userRole}', ";
+    $query .= "userName = '{$userName}', ";
+    $query .= "userEmail = '{$userEmail}', ";
+    $query .= "userPassword = '{$userPassword}' ";
+    $query .= "WHERE userId = {$getUserId}";
+
+    $updateUser = mysqli_query($connection,$query);
+    queryCheck($updateUser);
+
+    header("Location:users.php");
 
 } 
 
@@ -76,31 +65,31 @@ if(isset($_POST['updatePost'])){
 <form action="" method="post" enctype="multipart/form-data">
 
 	<div class="form-gorup">
-		<label for="title">Post Title</label>
-		<input value="<?php echo $postTitle;?>" type="text" class="form-control" name="title">
+		<label for="userFirstName">First Name</label>
+		<input value="<?php echo $userFirstName;?>" type="text" class="form-control" name="userFirstName">
 	</div>
 
 	<div class="form-gorup">
+		<label for="userLastName">Last Name</label>
+		<input value="<?php echo $userLastName;?>" type="text" class="form-control" name="userLastName">
+	</div>
 
-		<label for="postCatagory">Post Catagory</label>
+	<div class="form-gorup">
+	
+		<label for="userRole">User Role</label>
 		
+	 
+		<select class="form-control" name="userRole" id="userRole">
+			<option><?php echo $userRole;?></option>
 
-		<select class="form-control" name="postCatagory" id="postCatagory">
-			<?php
+			<?php 
 
-			$query = "SELECT * FROM users";
-	                $selectUsers = mysqli_query($connection,$query); //select all catagory data from database
+			if($userRole == 'Admin'){
+				echo "<option value='Subscriber'>Subscriber</option>";
+			}else{
+				echo "<option value='Admin'>Admin</option>";
+			}
 
-	                queryCheck($selectUsers);
-
-	                while($row = mysqli_fetch_assoc($selectUsers)){ //printing all user role from database
-		                $userId = $row['userId'];    
-		                $userRole = $row['userRole'];
-
-		                echo "<option value='{$userId}'>{$userRole}</option>";
-		           }
-
-		 
 			?>
 		</select>
 		
@@ -108,35 +97,30 @@ if(isset($_POST['updatePost'])){
 
 	</div>
 
-	<div class="form-gorup">
-		<label for="postAuthor">Post Author</label>
-		<input value="<?php echo $postAuthor;?>" type="text" class="form-control" name="postAuthor">
-	</div>
+	
 
-	<div class="form-gorup">
-		<label for="postStatus">Post Status</label>
-		<input value="<?php echo $postStatus;?>" type="text" class="form-control" name="postStatus">
-	</div>
-
-	<div class="form-gorup">
+	<!-- <div class="form-gorup">
 		<label for="postImage">Post Image</label>
 		<input type="file" name="postImage">
-		<img width="100" src="../images/<?php echo $postImage;?>" alt="">
+	</div> -->
+
+	<div class="form-gorup">
+		<label for="userName">User Name</label>
+		<input value="<?php echo $userName;?>" type="text" class="form-control" name="userName">
 	</div>
 
 	<div class="form-gorup">
-		<label for="postTags">Post Tags</label>
-		<input value="<?php echo $postTags;?>" type="text" class="form-control" name="postTags">
+		<label for="userEmail">Email</label>
+		<input value="<?php echo $userEmail;?>" type="email" class="form-control" name="userEmail">
 	</div>
 
 	<div class="form-gorup">
-		<label for="postContent">Post Content</label>
-		
-		<textarea  class="form-control" name="postContent" id="" cols="30" rows="10"><?php echo $postContent;?></textarea>
+		<label for="userPassword">Password</label>
+		<input value="<?php echo $userPassword;?>" type="password" class="form-control" name="userPassword">
 	</div>
 
 	<div class="form-gorup">
-		<input type="submit" class="btn btn-primary" name="updatePost" value="Update Post">
+		<input type="submit" class="btn btn-primary" name="editUser" value="Update User">
 	</div>
 	
 </form>

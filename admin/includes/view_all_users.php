@@ -12,6 +12,7 @@
                                     <th>Change User Role</th>
                                     <th>Approve</th>
                                     <th>Deny</th>
+                                    <th>Edit</th>
                                     <th>Delete</th>
                                     
                                     
@@ -77,6 +78,7 @@
                                     echo "<td><a href='users.php?approve={$userId}'>Approve</a></td>";
                                     echo "<td><a href='users.php?deny={$userId}'>Deny</a></td>";
                                     
+                                    echo "<td><a href='users.php?source=editUser&u_id={$userId}'>Edit</a></td>";
                                     echo "<td><a href='users.php?delete={$userId}'>Delete</a></td>";
                                     echo "</tr>";
 
