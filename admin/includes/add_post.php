@@ -12,7 +12,7 @@ if(isset($_POST['createPost'])){
 	$postTags = $_POST['postTags'];
 	$postContent = $_POST['postContent'];
 	$postDate = date('d-m-y');
-	//$postCommentCount = 4;
+	
 
 	move_uploaded_file($postImageTemp, "../images/$postImage"); //upload image source to image folder
 

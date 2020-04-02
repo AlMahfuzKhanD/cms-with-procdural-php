@@ -71,7 +71,7 @@ include "includes/navigation.php";
                     $createCommentQuery = mysqli_query($connection, $query);
                     queryCheck($createCommentQuery);
 
-                    $query = "UPDATE posts SET postCommentCount = postCommentCount + 1 ";
+                    $query = "UPDATE posts SET postCommentCount = postCommentCount + 1 "; //increasing comment count +1 after every new comment
                     $query .= "WHERE postId = $individualPostId";
 
                     $updateCommentCount = mysqli_query($connection, $query);

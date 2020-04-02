@@ -24,6 +24,13 @@ include "includes/navigation.php";
                         $postDate = $row['postDate'];
                         $postImage = $row['postImage'];
                         $postContent = substr($row['postContent'], 0,100);
+                        $postStatus = $row['postStatus'];
+
+                        if($postStatus !== 'published'){
+                            echo "<h1>No Post Here</h1>";
+                        }else{
+
+
                         
                         ?>
 
@@ -48,7 +55,7 @@ include "includes/navigation.php";
 
                 <hr>
 
-                <?php    } ?>
+                <?php    } } ?>
 
                 
 
