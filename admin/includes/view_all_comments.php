@@ -52,7 +52,7 @@
                                     echo "<td>{$commentStatus}</td>";
 
 
-                                    $query = "SELECT * FROM posts WHERE postId = $commentPostId";
+                                    $query = "SELECT * FROM posts WHERE postId = $commentPostId"; //showing the post related to specific comments
                                     $selectPostIdQuery = mysqli_query($connection, $query);
                                     while($row = mysqli_fetch_assoc($selectPostIdQuery)){
                                          $postId = $row['postId'];
@@ -107,7 +107,7 @@
                         if(isset($_GET['deny'])){  //deny comments
                             $getCommentId = $_GET['deny'];
                             $query = "UPDATE comments SET commentStatus = 'Denied' WHERE commentId = $getCommentId";
-                                    $deletComment = mysqli_query($connection, $query);
+                                    $denyComment = mysqli_query($connection, $query);
                                     header("Location: comments.php");
                             $denyComment = mysqli_query($connection, $query);
                             queryCheck($denyComment);

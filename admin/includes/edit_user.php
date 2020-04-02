@@ -88,17 +88,17 @@ if(isset($_POST['updatePost'])){
 		<select class="form-control" name="postCatagory" id="postCatagory">
 			<?php
 
-			$query = "SELECT * FROM catagories";
-	                $selectCatagories = mysqli_query($connection,$query); //select all catagory data from database
+			$query = "SELECT * FROM users";
+	                $selectUsers = mysqli_query($connection,$query); //select all catagory data from database
 
-	                queryCheck($selectCatagories);
+	                queryCheck($selectUsers);
 
-	                while($row = mysqli_fetch_assoc($selectCatagories)){ //fetching data usin loop
-		                $catId = $row['catId'];    
-		                $catTitle = $row['catTitle'];
+	                while($row = mysqli_fetch_assoc($selectUsers)){ //printing all user role from database
+		                $userId = $row['userId'];    
+		                $userRole = $row['userRole'];
 
-		                echo "<option value='{$catId}'>{$catTitle}</option>";
-		            }
+		                echo "<option value='{$userId}'>{$userRole}</option>";
+		           }
 
 		 
 			?>
