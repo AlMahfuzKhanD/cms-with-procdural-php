@@ -1,3 +1,4 @@
+<?php include "./home_functions.php"?>
 <!DOCTYPE html>
 <html lang="en">
 

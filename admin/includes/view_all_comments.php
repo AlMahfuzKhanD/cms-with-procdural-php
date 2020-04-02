@@ -62,8 +62,8 @@
 
 
                                     echo "<td>{$commentDate}</td>";
-                                    echo "<td><a href='comments.php?source=editPost&p_id={$commentId}'>Approve</a></td>";
-                                    echo "<td><a href='comments.php?delete={$commentId}'>Deny</a></td>";
+                                    echo "<td><a href='comments.php?approve={$commentId}'>Approve</a></td>";
+                                    echo "<td><a href='comments.php?deny={$commentId}'>Deny</a></td>";
                                     
                                     echo "<td><a href='comments.php?delete={$commentId}'>Delete</a></td>";
                                     echo "</tr>";
@@ -84,13 +84,33 @@
 
                         <?php 
 
-                        if(isset($_GET['delete'])){  //delete posts
+                        if(isset($_GET['delete'])){  //delete comments
                             $getCommentId = $_GET['delete'];
                             $query = "DELETE FROM comments WHERE commentId = {$getCommentId}";
                                     $deletComment = mysqli_query($connection, $query);
                                     header("Location: comments.php");
                             $deletComment = mysqli_query($connection, $query);
                             queryCheck($deletComment);
+
+                        }
+
+                        if(isset($_GET['approve'])){  //approve comments
+                            $getCommentId = $_GET['approve'];
+                            $query = "UPDATE comments SET commentStatus = 'Approved' WHERE commentId = $getCommentId ";
+                                    $approveComment = mysqli_query($connection, $query);
+                                    header("Location: comments.php");
+                            $approveComment = mysqli_query($connection, $query);
+                            queryCheck($approveComment);
+
+                        }
+
+                        if(isset($_GET['deny'])){  //deny comments
+                            $getCommentId = $_GET['deny'];
+                            $query = "UPDATE comments SET commentStatus = 'Denied' WHERE commentId = $getCommentId";
+                                    $deletComment = mysqli_query($connection, $query);
+                                    header("Location: comments.php");
+                            $denyComment = mysqli_query($connection, $query);
+                            queryCheck($denyComment);
 
                         }
 

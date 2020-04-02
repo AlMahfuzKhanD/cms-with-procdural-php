@@ -12,13 +12,13 @@ if(isset($_POST['createPost'])){
 	$postTags = $_POST['postTags'];
 	$postContent = $_POST['postContent'];
 	$postDate = date('d-m-y');
-	$postCommentCount = 4;
+	//$postCommentCount = 4;
 
 	move_uploaded_file($postImageTemp, "../images/$postImage"); //upload image source to image folder
 
-	$query = "INSERT INTO posts(postCatagoryId, postTitle, postAuthor, postDate, postImage, postContent, postTags, postCommentCount, postStatus) ";
+	$query = "INSERT INTO posts(postCatagoryId, postTitle, postAuthor, postDate, postImage, postContent, postTags, postStatus) ";
 
-	$query .= "VALUES({$postCatagoryId},'{$postTitle}','{$postAuthor}',now(),'{$postImage}','{$postContent}','{$postTags}',{$postCommentCount},'{$postStatus}' ) ";
+	$query .= "VALUES({$postCatagoryId},'{$postTitle}','{$postAuthor}',now(),'{$postImage}','{$postContent}','{$postTags}','{$postStatus}' ) ";
 	$insertPostQuery = mysqli_query($connection, $query);
 
 	queryCheck($insertPostQuery);
