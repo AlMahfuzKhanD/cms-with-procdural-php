@@ -28,6 +28,10 @@ while($row = mysqli_fetch_array($selectUserQury)){
 
 if($userName !== $dbUserName &&  $userPassword !== $dbUserPassword){
 	header("Location: ../index.php");
+}else if($userName == $dbUserName &&  $userPassword == $dbUserPassword){
+header("Location: ../admin");
+}else{
+	header("Location: ../index.php");
 }
 
 
