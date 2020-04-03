@@ -1,5 +1,6 @@
 <?php include "db.php"; ?>
 <?php ob_start(); ?>
+<?php session_start(); ?>
 <?php include "../home_functions.php"; ?>
 
 
@@ -25,11 +26,14 @@ while($row = mysqli_fetch_array($selectUserQury)){
 	$dbUserRole = $row['userRole'];
 	
 }
+//checking login info with database
+if($userName === $dbUserName &&  $userPassword === $dbUserPassword){
+	$_SESSION['userName'] = $dbUserName; //set session
+	$_SESSION['userFirstName'] = $dbUserFirstName; //set session
+	$_SESSION['userLastName'] = $dbUserLastName; //set session
+	$_SESSION['userRole'] = $dbUserRole; //set session
 
-if($userName !== $dbUserName &&  $userPassword !== $dbUserPassword){
-	header("Location: ../index.php");
-}else if($userName == $dbUserName &&  $userPassword == $dbUserPassword){
-header("Location: ../admin");
+	header("Location: ../admin");
 }else{
 	header("Location: ../index.php");
 }

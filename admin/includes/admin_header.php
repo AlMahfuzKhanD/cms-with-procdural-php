@@ -1,6 +1,22 @@
 <?php ob_start(); ?>
+<?php session_start(); ?>
 <?php include "../includes/db.php"?>
 <?php include "functions.php"?>
+<?php 
+
+if(!isset($_SESSION['userRole'])){
+    
+        header("Location: ../index.php"); // checking user role or not. If empty, access denied
+    
+}else{
+// here admin or subscriber access will be checked. If not admin , access denied
+} 
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
