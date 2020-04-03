@@ -73,7 +73,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Profiles</a>
+                        <a href="profile.php"><i class="fa fa-fw fa-wrench"></i> Profile</a>
                     </li>
 
 
