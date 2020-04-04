@@ -21,7 +21,7 @@
                 </div>
                 <!-- /.row -->
 
-                       
+
                 <!-- /.row -->
                 
 <div class="row">
@@ -33,7 +33,12 @@
                         <i class="fa fa-file-text fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                  <div class='huge'>12</div>
+                        <?php
+                         $query = "SELECT * FROM posts";
+                         $selectAllPosts = mysqli_query($connection,$query);
+                         $postCounts = mysqli_num_rows($selectAllPosts);
+                        ?>
+                  <div class='huge'><?php echo $postCounts;?></div>
                         <div>Posts</div>
                     </div>
                 </div>
@@ -55,7 +60,12 @@
                         <i class="fa fa-comments fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                     <div class='huge'>23</div>
+                        <?php
+                         $query = "SELECT * FROM comments";
+                         $selectAllComments = mysqli_query($connection,$query);
+                         $commentCounts = mysqli_num_rows($selectAllComments);
+                        ?>
+                     <div class='huge'><?php echo $commentCounts;?></div>
                       <div>Comments</div>
                     </div>
                 </div>
@@ -77,7 +87,12 @@
                         <i class="fa fa-user fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                    <div class='huge'>23</div>
+                        <?php
+                         $query = "SELECT * FROM users";
+                         $selectAllUsers = mysqli_query($connection,$query);
+                         $userCounts = mysqli_num_rows($selectAllUsers);
+                        ?>
+                    <div class='huge'><?php echo $userCounts;?></div>
                         <div> Users</div>
                     </div>
                 </div>
@@ -99,12 +114,17 @@
                         <i class="fa fa-list fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class='huge'>13</div>
+                        <?php
+                         $query = "SELECT * FROM catagories";
+                         $selectAllCatagories = mysqli_query($connection,$query);
+                         $catagoryCounts = mysqli_num_rows($selectAllCatagories);
+                        ?>
+                        <div class='huge'><?php echo $catagoryCounts;?></div>
                          <div>Categories</div>
                     </div>
                 </div>
             </div>
-            <a href="categories.php">
+            <a href="catagories.php">
                 <div class="panel-footer">
                     <span class="pull-left">View Details</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
