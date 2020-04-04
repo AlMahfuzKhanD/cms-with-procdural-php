@@ -136,6 +136,18 @@
 </div>
                 <!-- /.row -->
 
+
+
+                 <?php
+                         $query = "SELECT * FROM posts WHERE postStatus = 'draft'";
+                         $selectAllDraftPosts = mysqli_query($connection,$query);
+                         $draftPostCounts = mysqli_num_rows($selectAllDraftPosts);
+                ?>
+
+
+
+               <!--  ##chart Javascript -->
+
                 <div class="row">
                     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
@@ -145,11 +157,17 @@
         var data = google.visualization.arrayToDataTable([
           ['Data', 'Count'],
           <?php
+          $element_text = ['Active Posts', 'Comments', 'Users', 'Categories'];
+          $element_count = [$postCounts, $commentCounts, $userCounts, $catagoryCounts];
 
-           
+          for($i =0; $i<4;$i++){
+            echo "['{$element_text[$i]}'" . " ," . "{$element_count[$i]}],";
+
+          }
+
 
           ?>
-          ['Posts', 1000]
+          //['Posts', 1000]
           
         ]);
 
