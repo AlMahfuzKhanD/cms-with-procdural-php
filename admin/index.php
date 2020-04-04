@@ -139,9 +139,31 @@
 
 
                  <?php
+                        //draft posts
                          $query = "SELECT * FROM posts WHERE postStatus = 'draft'";
                          $selectAllDraftPosts = mysqli_query($connection,$query);
                          $draftPostCounts = mysqli_num_rows($selectAllDraftPosts);
+                         //Active posts
+                         $query = "SELECT * FROM posts WHERE postStatus = 'published'";
+                         $selectAllActivPosts = mysqli_query($connection,$query);
+                         $activPostCounts = mysqli_num_rows($selectAllActivPosts);
+                        //approved comments 
+                         $query = "SELECT * FROM comments WHERE commentStatus = 'Approved'";
+                         $selectAllApprovedComments = mysqli_query($connection,$query);
+                         $approvedCommentCounts = mysqli_num_rows($selectAllApprovedComments);
+                         //Denied comments
+
+                         $query = "SELECT * FROM comments WHERE commentStatus = 'Denied'";
+                         $AllDeniedComments = mysqli_query($connection,$query);
+                         $deniedCommentCounts = mysqli_num_rows($AllDeniedComments);
+                        // admin users
+                         $query = "SELECT * FROM users WHERE userRole = 'Admin'";
+                         $selectAllAdmin = mysqli_query($connection,$query);
+                         $adminUserCounts = mysqli_num_rows($selectAllAdmin);
+                         // subscriber users
+                         $query = "SELECT * FROM users WHERE userRole = 'Subscriber'";
+                         $selectAllSubscriber = mysqli_query($connection,$query);
+                         $subscriberUserCounts = mysqli_num_rows($selectAllSubscriber);
                 ?>
 
 
@@ -157,10 +179,10 @@
         var data = google.visualization.arrayToDataTable([
           ['Data', 'Count'],
           <?php
-          $element_text = ['Active Posts', 'Comments', 'Users', 'Categories'];
-          $element_count = [$postCounts, $commentCounts, $userCounts, $catagoryCounts];
+          $element_text = ['Posts','Active Posts','Draft Posts', 'Comments', 'Approved Comments', 'Pending Comments', 'Users', 'Admin', 'Subscriber', 'Categories'];
+          $element_count = [$postCounts, $activPostCounts, $draftPostCounts, $commentCounts, $approvedCommentCounts, $deniedCommentCounts, $userCounts, $userCounts, $adminUserCounts, $subscriberUserCounts];
 
-          for($i =0; $i<4;$i++){
+          for($i =0; $i<10;$i++){
             echo "['{$element_text[$i]}'" . " ," . "{$element_count[$i]}],";
 
           }
