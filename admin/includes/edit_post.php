@@ -66,7 +66,9 @@ if(isset($_POST['updatePost'])){
     $update_post = mysqli_query($connection,$query);
     queryCheck($update_post);
 
-    header("Location:posts.php");
+    echo "<p class='bg-success'>Post Updated.<a href='../post.php?p_id=$getPostId'>View Posts</a> OR <a href='posts.php'>Edit More Posts</a></p>";
+
+    //header("Location:posts.php");
 	
 
 } 

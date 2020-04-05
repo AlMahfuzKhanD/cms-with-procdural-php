@@ -28,7 +28,7 @@ if(!isset($_SESSION['userRole'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>CMS With procedural PHP</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,9 @@ if(!isset($_SESSION['userRole'])){
     <![endif]-->
 
     <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
-    <script type="text/javascript" src="chart_loader.js"></script>
+    <script type="text/javascript" src="../js/chart_loader.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
+    
 
 </head>
 
