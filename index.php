@@ -26,9 +26,8 @@ include "includes/navigation.php";
                         $postContent = substr($row['postContent'], 0,100);
                         $postStatus = $row['postStatus'];
 
-                        if($postStatus !== 'published'){
-                            echo "<h1>No Post Here</h1>";
-                        }else{
+                        if($postStatus == 'published'){
+                            
 
 
                         

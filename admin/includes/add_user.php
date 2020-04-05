@@ -24,6 +24,8 @@ if(isset($_POST['createUser'])){
 
 	queryCheck($insertUserQuery);
 
+	echo "User Created:" . " " . "<a href='users.php'>View Users</a>";
+
 } 
 
 ?>
