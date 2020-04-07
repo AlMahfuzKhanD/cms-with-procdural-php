@@ -53,34 +53,39 @@ include "includes/navigation.php";
 
                 <hr>
 
-                <?php    } ?>
+<?php    } ?>
 
-                  <!-- Blog Comments -->
+<!-- Blog Comments -->
 
-                  <?php
-                  if(isset($_POST['createComment'])){
+<?php
 
-                    $individualPostId = $_GET['p_id'];  //cathing data from comment form
+    if(isset($_POST['createComment'])){
 
-                    $commentAuthor = $_POST['commentAuthor'];
-                    $commentEmail = $_POST['commentEmail'];
-                    $commentContent = $_POST['commentContent'];
+        $individualPostId = $_GET['p_id'];  //cathing data from comment form
 
-                    $query = "INSERT INTO comments (commentPostId, commentAuthor, commentEmail, commentContent, commentStatus, commentDate)";
-                    $query .= "VALUES ($individualPostId ,'{$commentAuthor}', '{$commentEmail}', '{$commentContent}', 'Denied', now())";
-                    $createCommentQuery = mysqli_query($connection, $query);
-                    queryCheck($createCommentQuery);
+        $commentAuthor = $_POST['commentAuthor'];
+        $commentEmail = $_POST['commentEmail'];
+        $commentContent = $_POST['commentContent'];
 
-                    $query = "UPDATE posts SET postCommentCount = postCommentCount + 1 "; //increasing comment count +1 after every new comment
-                    $query .= "WHERE postId = $individualPostId";
+        if(!empty($commentAuthor) && !empty($commentEmail) && !empty($commentContent)){
 
-                    $updateCommentCount = mysqli_query($connection, $query);
+                $query = "INSERT INTO comments (commentPostId, commentAuthor, commentEmail, commentContent, commentStatus, commentDate)";
+                $query .= "VALUES ($individualPostId ,'{$commentAuthor}', '{$commentEmail}', '{$commentContent}', 'Denied', now())";
+                $createCommentQuery = mysqli_query($connection, $query);
+                queryCheck($createCommentQuery);
 
+                $query = "UPDATE posts SET postCommentCount = postCommentCount + 1 "; //increasing comment count +1 after every new comment
+                $query .= "WHERE postId = $individualPostId";
 
+                $updateCommentCount = mysqli_query($connection, $query);
 
-                  } 
+                }else{
+                    echo "<script>alert('Fields cannot be empty');</script>";
+                }
 
-                  ?>
+            } 
+
+        ?>
 
                 <!-- Comments Form -->
                 <div class="well">
