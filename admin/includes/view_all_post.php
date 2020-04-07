@@ -49,7 +49,7 @@ if(isset($_POST['checkBoxArry'])){
     </div>
     <div class="col-xs-4">
         <input type="submit" name="submit" class="btn btn-success" value="apply">
-        <a class="btn btn-primary" href="add_post.php">Add New</a>
+        <a class="btn btn-primary" href="posts.php?source=add_post">Add New</a>
     </div>
 
 
