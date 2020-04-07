@@ -25,9 +25,9 @@ if(isset($_POST['checkBoxArry'])){
                 break;
             
             default:
-                # code...
+                
                 break;
-        }
+        } // end of switch
 
 
 
