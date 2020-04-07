@@ -67,6 +67,7 @@ if(isset($_POST['checkBoxArry'])){
                     <th>Tags</th>
                     <th>Comments</th>
                     <th>Date</th>
+                    <th>View Posts</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -117,6 +118,7 @@ if(isset($_POST['checkBoxArry'])){
                 echo "<td>{$postTags}</td>";
                 echo "<td>{$postCommentCount}</td>";
                 echo "<td>{$postDate}</td>";
+                echo "<td><a href='../post.php?p_id={$postId}'>View Post</a></td>";
                 echo "<td><a href='posts.php?source=editPost&p_id={$postId}'>Edit</a></td>";
                 echo "<td><a href='posts.php?delete={$postId}'>Delete</a></td>";
                 echo "</tr>";
