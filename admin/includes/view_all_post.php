@@ -1,7 +1,38 @@
 <?php // cathing post id from check box for executing bulk options action
 if(isset($_POST['checkBoxArry'])){
-    echo "recievieng data";
-}
+
+    foreach($_POST['checkBoxArry'] as $checkBoxPostId){
+
+        $bulkOptions = $_POST['bulkOptions'];
+
+        switch ($bulkOptions) {
+            case 'published':
+                $query = "UPDATE posts SET postStatus = '{$bulkOptions}' WHERE postId = {$checkBoxPostId}";
+                $updatePostStatusPub = mysqli_query($connection, $query);
+                queryCheck($updatePostStatusPub);
+                break;
+
+                case 'draft':
+                $query = "UPDATE posts SET postStatus = '{$bulkOptions}' WHERE postId = {$checkBoxPostId}";
+                $updatePostStatusDraft = mysqli_query($connection, $query);
+                queryCheck($updatePostStatusDraft);
+                break;
+
+                case 'delete':
+                $query = "DELETE FROM posts WHERE postId = {$checkBoxPostId}";
+                $deletePosts = mysqli_query($connection, $query);
+                queryCheck($deletePosts);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+
+
+    } //end foreach
+} //end if
 
 ?>
 
@@ -9,11 +40,11 @@ if(isset($_POST['checkBoxArry'])){
     <table class="table table-bordered table-hover">
     <div id="bulkOptionContainer" class="col-xs-4">
         
-        <select name="" class="form-control" id="">
+        <select name="bulkOptions" class="form-control" id="">
             <option value="">Select Options</option>
-            <option value="">Publish</option>
-            <option value="">Draft</option>
-            <option value="">Delete</option> 
+            <option value="published">Publish</option>
+            <option value="draft">Draft</option>
+            <option value="delete">Delete</option> 
         </select>
     </div>
     <div class="col-xs-4">
