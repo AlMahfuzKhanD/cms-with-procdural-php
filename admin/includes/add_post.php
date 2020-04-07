@@ -23,6 +23,10 @@ if(isset($_POST['createPost'])){
 
 	queryCheck($insertPostQuery);
 
+	$getPostId = mysqli_insert_id($connection); // pullling last id from database
+
+	echo "<p class='bg-success'>Post Added.<a href='../post.php?p_id=$getPostId'>View Posts</a> OR <a href='posts.php'>View All Posts</a></p>";
+
 } 
 
 ?>
@@ -69,7 +73,12 @@ if(isset($_POST['createPost'])){
 
 	<div class="form-gorup">
 		<label for="postStatus">Post Status</label>
-		<input type="text" class="form-control" name="postStatus">
+		<select class="form-control" name="postStatus" id="">
+			
+			<option value="draft">Slect Option</option>
+			<option value="published">Publish</option>
+			<option value="draft">Draft</option>
+		</select>
 	</div>
 
 	<div class="form-gorup">
