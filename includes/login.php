@@ -26,6 +26,8 @@ while($row = mysqli_fetch_array($selectUserQury)){
 	$dbUserRole = $row['userRole'];
 	
 }
+
+$userPassword = crypt($userPassword,$dbUserPassword); // decrypting password by replacing randsalt value with the original password
 //checking login info with database
 if($userName === $dbUserName &&  $userPassword === $dbUserPassword){
 	$_SESSION['userName'] = $dbUserName; //set session
