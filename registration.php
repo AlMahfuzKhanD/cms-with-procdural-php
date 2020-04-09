@@ -20,17 +20,43 @@ $connection = mysqli_connect($dbHost,$dbUser,$dbPass,$dbName);
 
 
 if(isset($_POST['submit'])){
+
     $userName = $_POST['username'];
     $userEmail = $_POST['email'];
     $userPassword = $_POST['password'];
 
-    echo $userName = mysqli_real_escape_string($connection, $userName);
-    $userEmail = mysqli_real_escape_string($connection, $userEmail);
-    $userPassword = mysqli_real_escape_string($connection, $userPassword);
+    if(!empty($userName) && !empty($userEmail) && !empty($userPassword)){
+
+        $userName = mysqli_real_escape_string($connection, $userName);
+        $userEmail = mysqli_real_escape_string($connection, $userEmail);
+        $userPassword = mysqli_real_escape_string($connection, $userPassword);
+
+        $query = "SELECT randSalt FROM users";
+        $selectRandSalt = mysqli_query($connection,$query);
+        queryCheck($selectRandSalt);
+
+        $row = mysqli_fetch_array($selectRandSalt);
+        $salt = $row['randSalt'];
+
+        $query = "INSERT INTO users(userRole, userName, userEmail, userPassword) ";
+
+        $query .= "VALUES('subscriber','{$userName}','{$userEmail}','{$userPassword}' ) ";
+        $registerUserQuery = mysqli_query($connection, $query);
+
+        queryCheck($registerUserQuery);
+        $messege = "Your registration has been submitted";
+       
+    }else{//end nested if
+        $messege = "Fields cannot be empty";
+    }
+
+    
 
 
 
-}
+}else{//end if
+    $messege= "";
+} 
 
  ?> 
 
@@ -50,6 +76,7 @@ if(isset($_POST['submit'])){
                 <div class="form-wrap">
                 <h1>Register</h1>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+                        <h6 class="text-center"><?php echo $messege; ?></h6>
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username">
