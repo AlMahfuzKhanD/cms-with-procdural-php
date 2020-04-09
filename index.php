@@ -43,7 +43,7 @@ include "includes/navigation.php";
                     <a href="post.php?p_id=<?php echo $postId?>"><?php echo $postTitle?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $postAuthor?></a>
+                    by <a href="author_post.php?author=<?php echo $postAuthor?>&p_id=<?php echo $postId?>"><?php echo $postAuthor?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $postDate?></p>
                 <hr>
