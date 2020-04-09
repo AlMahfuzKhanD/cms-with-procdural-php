@@ -37,8 +37,11 @@
                     <li>
                         <a href="admin">Admin</a>
                     </li>
+                    <li>
+                        <a href="registration.php">Registration</a>
+                    </li>
                     <?php
-                    if(isset($_SESSION['userRole'])){
+                    if(isset($_SESSION['userRole'])){ //if logged in as admin, edit post button will be shownn
                         if(isset($_GET['p_id'])){
                             $postId = $_GET['p_id'];
                             echo "<li>
