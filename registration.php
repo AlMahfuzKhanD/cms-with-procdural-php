@@ -36,7 +36,8 @@ if(isset($_POST['submit'])){
         queryCheck($selectRandSalt);
 
         $row = mysqli_fetch_array($selectRandSalt);
-        $salt = $row['randSalt'];
+        $salt = $row['randSalt']; //fetching randsalt from database
+        $userPassword = crypt($userPassword,$salt); //encrypt password using crypt function
 
         $query = "INSERT INTO users(userRole, userName, userEmail, userPassword) ";
 
