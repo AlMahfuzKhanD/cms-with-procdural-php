@@ -18,6 +18,7 @@ if(isset($_GET['u_id'])){
                                     $userRole = $row['userRole'];
                                     $userStatus = $row['userStatus'];
                                 }
+    
 
 
 }
@@ -44,13 +45,27 @@ if(isset($_POST['editUser'])){
 
 	//move_uploaded_file($postImageTemp, "../images/$postImage"); //upload image source to image folder
 
+	//rand salt query
+
+		$query = "SELECT randSalt FROM users";
+        $selectRandSalt = mysqli_query($connection,$query);
+        queryCheck($selectRandSalt);
+
+        $row = mysqli_fetch_array($selectRandSalt);
+        $salt = $row['randSalt']; //fetching randsalt from database
+        $hashedPassword = crypt($userPassword,$salt); //encrypt password using crypt 
+
+
+
+
+// update query
 	$query = "UPDATE users SET ";
     $query .= "userFirstName = '{$userFirstName}', ";
     $query .= "userLastName = '{$userLastName}', ";
     $query .= "userRole = '{$userRole}', ";
     $query .= "userName = '{$userName}', ";
     $query .= "userEmail = '{$userEmail}', ";
-    $query .= "userPassword = '{$userPassword}' ";
+    $query .= "userPassword = '{$hashedPassword}' ";
     $query .= "WHERE userId = {$getUserId}";
 
     $updateUser = mysqli_query($connection,$query);
@@ -80,7 +95,7 @@ if(isset($_POST['editUser'])){
 		
 	 
 		<select class="form-control" name="userRole" id="userRole">
-			<option><?php echo $userRole;?></option>
+			<option value='<?php echo $userRole;?>'><?php echo $userRole;?></option>
 
 			<?php 
 
