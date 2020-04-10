@@ -97,6 +97,7 @@ if(isset($_POST['checkBoxArry'])){
                     <th>View Posts</th>
                     <th>Edit</th>
                     <th>Delete</th>
+                    <th>Views</th>
                 </tr>
             </thead>
         <tbody>
@@ -149,7 +150,7 @@ if(isset($_POST['checkBoxArry'])){
                 echo "<td><a href='../post.php?p_id={$postId}'>View Post</a></td>";
                 echo "<td><a href='posts.php?source=editPost&p_id={$postId}'>Edit</a></td>";
                 echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delet?'); \" href='posts.php?delete={$postId}'>Delete</a></td>";
-                echo "<td>{$postViewsCount}</td>";
+                echo "<td><a href='posts.php?reset={$postId}'>{$postViewsCount}</a></td>";
                 echo "</tr>";
 
         } //end while
@@ -168,6 +169,16 @@ if(isset($_POST['checkBoxArry'])){
         </form>
 
         <?php 
+
+        if(isset($_GET['reset'])){  //reset posts
+            $getPostId = $_GET['reset'];
+            $query = "UPDATE posts SET postViewsCount = 0 WHERE postId =" . mysqli_real_escape_string($connection, $getPostId) . " ";
+                    $resetPost = mysqli_query($connection, $query);
+                    header("Location: posts.php");
+            $deletePost = mysqli_query($connection, $query);
+            queryCheck($resetPost);
+
+        }
 
         if(isset($_GET['delete'])){  //delete posts
             $getPostId = $_GET['delete'];
