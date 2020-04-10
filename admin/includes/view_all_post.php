@@ -23,6 +23,32 @@ if(isset($_POST['checkBoxArry'])){
                 $deletePosts = mysqli_query($connection, $query);
                 queryCheck($deletePosts);
                 break;
+
+                case 'clone':
+                $query = "SELECT * FROM posts WHERE postId = {$checkBoxPostId}";
+                $selectPostsQuery = mysqli_query($connection, $query);
+                queryCheck($selectPostsQuery);
+
+                while($row = mysqli_fetch_array($selectPostsQuery)){ //fetching data usin loop
+                
+                $postAuthor = $row['postAuthor'];    
+                $postTitle = $row['postTitle'];
+                $postCatagoryId = $row['postCatagoryId'];
+                $postStatus = $row['postStatus'];
+                $postImage = $row['postImage'];
+                $postTags = $row['postTags'];
+                $postContent = $row['postContent'];
+                $postDate = $row['postDate'];
+
+            } //end while
+
+            $query = "INSERT INTO posts(postCatagoryId, postTitle, postAuthor, postDate, postImage, postContent, postTags, postStatus) ";
+
+    $query .= "VALUES({$postCatagoryId},'{$postTitle}','{$postAuthor}',now(),'{$postImage}','{$postContent}','{$postTags}','{$postStatus}' ) ";
+    $copyPostQuery = mysqli_query($connection, $query);
+
+    queryCheck($copyPostQuery);
+                break;
             
             default:
                 
@@ -45,6 +71,7 @@ if(isset($_POST['checkBoxArry'])){
             <option value="published">Publish</option>
             <option value="draft">Draft</option>
             <option value="delete">Delete</option> 
+            <option value="clone">Clone</option> 
         </select>
     </div>
     <div class="col-xs-4">
@@ -75,7 +102,7 @@ if(isset($_POST['checkBoxArry'])){
         <tbody>
             <?php 
 
-            $query = "SELECT * FROM posts";
+            $query = "SELECT * FROM posts ORDER BY postId DESC";
             $selectPosts = mysqli_query($connection,$query); //select all postsdata from database
 
             while($row = mysqli_fetch_assoc($selectPosts)){ //fetching data usin loop
@@ -123,7 +150,7 @@ if(isset($_POST['checkBoxArry'])){
                 echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delet?'); \" href='posts.php?delete={$postId}'>Delete</a></td>";
                 echo "</tr>";
 
-        } 
+        } //end while
 
 
             ?>
