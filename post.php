@@ -18,8 +18,12 @@ include "includes/navigation.php";
                 <?php
 
                 if(isset($_GET['p_id'])){   //collecting individual post id
-                    $individualPostId = $_GET['p_id'];
-                }
+                $individualPostId = $_GET['p_id'];
+
+                $query = "UPDATE posts SET postViewsCount = postViewsCount + 1 WHERE postId = $individualPostId";
+                $sendQuery = mysqli_query($connection,$query);
+                queryCheck($sendQuery);
+                
 
                 $query = "SELECT * FROM posts WHERE postId = $individualPostId";  //fetching individual post from posts table
                 $selectAllPostsQuery = mysqli_query($connection,$query); 
@@ -53,7 +57,17 @@ include "includes/navigation.php";
 
                 <hr>
 
-<?php    } ?>
+<?php    } 
+
+
+
+}else{
+    header("Location: index.php");
+}
+
+
+
+ ?>
 
 <!-- Blog Comments -->
 
