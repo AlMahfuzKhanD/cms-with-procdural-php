@@ -15,7 +15,39 @@ include "includes/navigation.php";
             <div class="col-md-8">
 
                 <?php
-                $query = "SELECT * FROM posts";  //fetching data from posts table
+
+                $per_page = 2;
+
+                //code for pagination
+                if(isset($_GET['page'])){
+
+                    
+                    $page = $_GET['page'];
+
+                }else{
+
+                    $page = "";
+                }
+
+                if($page == "" || $page == 1){
+                    $page1 = 0;
+                }else{
+                    $page1 = ($page * $per_page) -$per_page;
+
+                }
+
+
+                $postQueryCount = "SELECT * FROM posts";
+                $findCountQuery = mysqli_query($connection,$postQueryCount);
+                $count = mysqli_num_rows($findCountQuery);
+                $count = ceil($count/$per_page); //ceil used to round up
+
+
+                //end code for pagination
+
+
+
+                $query = "SELECT * FROM posts LIMIT $page1, $per_page";  //fetching data from posts table
                 $selectAllPostsQuery = mysqli_query($connection,$query); 
                 while($row = mysqli_fetch_assoc($selectAllPostsQuery)){  //collecting all data using while loop
                         $postId = $row['postId'];
@@ -39,6 +71,8 @@ include "includes/navigation.php";
                 </h1>
 
                 <!-- First Blog Post -->
+
+                <!-- <h1><?php //echo $count?></h1> --> <!-- testing count -->
                 <h2>
                     <a href="post.php?p_id=<?php echo $postId?>"><?php echo $postTitle?></a>
                 </h2>
@@ -74,6 +108,15 @@ include "includes/sidebar.php";
         <!-- /.row -->
 
         <hr>
+        <ul class="pager">
+            <?php
+            for($i = 1;$i<=$count;$i++){
+                echo "<li><a href='index.php?page=$i'>{$i}</a></li>";
+            }
+
+
+            ?>
+        </ul>
 <?php
 include "includes/footer.php"; 
 ?>       
