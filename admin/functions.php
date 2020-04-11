@@ -60,6 +60,32 @@ function deleteCatagories(){
                                 }
 }
 
+function usersOnline(){
+    global $connection;
+    $session = session_id();
+         $time = time();
+         $timeOutInSeconds = 60;
+         $timeOut = $time - $timeOutInSeconds;
+         $query = "SELECT * FROM usersOnline WHERE session = '$session'";
+         $sendQuery = mysqli_query($connection,$query);
+         queryCheck($sendQuery);
+         $count = mysqli_num_rows($sendQuery);
+         if($count == null){
+            $query = "INSERT INTO usersOnline(session, time) VALUES('$session','$time')";
+            $sendQuery = mysqli_query($connection,$query);
+            queryCheck($sendQuery);
+         }else{
+            $query = "UPDATE usersOnline SET time = '$time' WHERE session = '$session'";
+            $updateQuery = mysqli_query($connection,$query);
+            queryCheck($updateQuery);
+
+         }
+            $query = "SELECT * FROM usersOnline WHERE time > '$timeOut'";
+            $selectQuery = mysqli_query($connection,$query);
+            queryCheck($selectQuery);
+            return $countUser = mysqli_num_rows($selectQuery);
+}
+
 
 
 
