@@ -61,10 +61,17 @@ function deleteCatagories(){
 }
 
 function usersOnline(){
-    global $connection;
-    $session = session_id();
+
+    if(isset($_GET['onlineUsers'])){
+
+        global $connection;
+        if(!$connection){
+            session_start();
+            include("../includes/db.php");
+
+            $session = session_id();
          $time = time();
-         $timeOutInSeconds = 60;
+         $timeOutInSeconds = 05;
          $timeOut = $time - $timeOutInSeconds;
          $query = "SELECT * FROM usersOnline WHERE session = '$session'";
          $sendQuery = mysqli_query($connection,$query);
@@ -83,8 +90,16 @@ function usersOnline(){
             $query = "SELECT * FROM usersOnline WHERE time > '$timeOut'";
             $selectQuery = mysqli_query($connection,$query);
             queryCheck($selectQuery);
-            return $countUser = mysqli_num_rows($selectQuery);
-}
+            echo $countUser = mysqli_num_rows($selectQuery);
+        } //end nested if
+
+
+    
+        } // end if
+    } //end usersOnline
+
+    usersOnline(); // calling function
+    
 
 
 
