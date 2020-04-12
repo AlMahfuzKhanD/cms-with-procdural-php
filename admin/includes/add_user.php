@@ -12,6 +12,9 @@ if(isset($_POST['createUser'])){
 	$userName = $_POST['userName'];
 	$userEmail = $_POST['userEmail'];
 	$userPassword = $_POST['userPassword'];
+	$userPassword = mysqli_real_escape_string($connection, $userPassword);
+
+    $userPassword = password_hash($userPassword, PASSWORD_BCRYPT, array('cost' => 12));
 	//$postDate = date('d-m-y');
 	
 
