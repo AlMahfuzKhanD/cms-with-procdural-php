@@ -27,9 +27,14 @@ while($row = mysqli_fetch_array($selectUserQury)){
 	
 }
 
-$userPassword = crypt($userPassword,$dbUserPassword); // decrypting password by replacing randsalt value with the original password
+//$userPassword = crypt($userPassword,$dbUserPassword); // decrypting password by replacing randsalt value with the original password(we don't use rand salt anymore. besides we use password_hash function)
+
+ 
+
 //checking login info with database
-if($userName === $dbUserName &&  $userPassword === $dbUserPassword){
+//previous logic was if($userName === $dbUserName &&  $userPassword === $dbUserPassword)
+if(password_verify($userPassword, $dbUserPassword)) {
+
 	$_SESSION['userName'] = $dbUserName; //set session
 	$_SESSION['userFirstName'] = $dbUserFirstName; //set session
 	$_SESSION['userLastName'] = $dbUserLastName; //set session
