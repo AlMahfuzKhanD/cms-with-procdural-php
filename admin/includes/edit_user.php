@@ -3,23 +3,21 @@ if(isset($_GET['u_id'])){
 	$getUserId = $_GET['u_id'];
 
 	$query = "SELECT * FROM users WHERE userId = {$getUserId}";
-                                $selectUsersById = mysqli_query($connection,$query); //select all postsdata from database
+    $selectUsersById = mysqli_query($connection,$query); //select all postsdata from database
 
-                                while($row = mysqli_fetch_assoc($selectUsersById)){ //fetching data usin loop
-                                    $userId = $row['userId'];
-                                    $userName = $row['userName'];    
-                                    
-                                    $userPassword = $row['userPassword'];
-                                    $userFirstName = $row['userFirstName'];
-                                    
-                                    $userLastName = $row['userLastName'];
-                                    $userEmail = $row['userEmail'];
-                                    $userImage = $row['userImage'];
-                                    $userRole = $row['userRole'];
-                                    $userStatus = $row['userStatus'];
-                                }
-    
-
+    while($row = mysqli_fetch_assoc($selectUsersById)){ //fetching data usin loop
+        $userId = $row['userId'];
+        $userName = $row['userName'];    
+        
+        $userPassword = $row['userPassword'];
+        $userFirstName = $row['userFirstName'];
+        
+        $userLastName = $row['userLastName'];
+        $userEmail = $row['userEmail'];
+        $userImage = $row['userImage'];
+        $userRole = $row['userRole'];
+        $userStatus = $row['userStatus'];
+    }
 
 }
 
@@ -47,13 +45,17 @@ if(isset($_POST['editUser'])){
 
 	//rand salt query
 
-		$query = "SELECT randSalt FROM users";
-        $selectRandSalt = mysqli_query($connection,$query);
-        queryCheck($selectRandSalt);
+	/*$query = "SELECT randSalt FROM users";
+    $selectRandSalt = mysqli_query($connection,$query);
+    queryCheck($selectRandSalt);
 
-        $row = mysqli_fetch_array($selectRandSalt);
-        $salt = $row['randSalt']; //fetching randsalt from database
-        $hashedPassword = crypt($userPassword,$salt); //encrypt password using crypt 
+    $row = mysqli_fetch_array($selectRandSalt);
+    $salt = $row['randSalt']; //fetching randsalt from database
+    $hashedPassword = crypt($userPassword,$salt); //encrypt password using crypt*/ 
+
+    $userPassword = mysqli_real_escape_string($connection, $userPassword);
+
+    $hashedPassword = password_hash($userPassword, PASSWORD_BCRYPT, array('cost' => 12));
 
 
 
