@@ -19,6 +19,8 @@ if(isset($_GET['u_id'])){
         $userStatus = $row['userStatus'];
     }
 
+}else{
+	header("Location: index.php");
 }
 
 ?>
