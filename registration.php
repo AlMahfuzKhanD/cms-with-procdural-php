@@ -31,13 +31,17 @@ if(isset($_POST['submit'])){
         $userEmail = mysqli_real_escape_string($connection, $userEmail);
         $userPassword = mysqli_real_escape_string($connection, $userPassword);
 
-        $query = "SELECT randSalt FROM users";
-        $selectRandSalt = mysqli_query($connection,$query);
-        queryCheck($selectRandSalt);
+        $userPassword = password_hash($userPassword, PASSWORD_BCRYPT, array('cost' => 12));
 
-        $row = mysqli_fetch_array($selectRandSalt);
+        //##i use password_hash function, i don't need this randsalt any more.
+
+        /*$query = "SELECT randSalt FROM users";
+        $selectRandSalt = mysqli_query($connection,$query);
+        queryCheck($selectRandSalt);*/ 
+
+        /*$row = mysqli_fetch_array($selectRandSalt);
         $salt = $row['randSalt']; //fetching randsalt from database
-        $userPassword = crypt($userPassword,$salt); //encrypt password using crypt function
+        $userPassword = crypt($userPassword,$salt); //encrypt password using crypt function*/
 
         $query = "INSERT INTO users(userRole, userName, userEmail, userPassword) ";
 
