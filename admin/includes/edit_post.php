@@ -11,7 +11,7 @@ $query = "SELECT * FROM posts WHERE postId = {$getPostId}";
 
                                 while($row = mysqli_fetch_assoc($selectPostsById)){ //fetching data usin loop
                                     $postId = $row['postId'];
-                                    $postAuthor = $row['postAuthor'];    
+                                    $postUser = $row['postUser'];    
                                     $postTitle = $row['postTitle'];
                                     $postCatagoryId = $row['postCatagoryId'];
                                     $postStatus = $row['postStatus'];
@@ -27,7 +27,7 @@ $query = "SELECT * FROM posts WHERE postId = {$getPostId}";
 if(isset($_POST['updatePost'])){
 
 	$postTitle = $_POST['title'];
-	$postAuthor = $_POST['postAuthor'];
+	$postUser = $_POST['postUser'];
 	$postCatagoryId = $_POST['postCatagory'];
 	$postStatus = $_POST['postStatus'];
 
@@ -56,7 +56,7 @@ if(isset($_POST['updatePost'])){
 	$query = "UPDATE posts SET postTitle='{$postTitle}' ,";
     $query .= "postCatagoryId='{$postCatagoryId}' ,";
     $query .= "postDate= now(),";
-    $query .= "postAuthor='{$postAuthor}' ,";
+    $query .= "postUser='{$postUser}' ,";
     $query .= "postStatus='{$postStatus}' ,";
     $query .= "postTags='{$postTags}' ,";
     $query .= "postContent='{$postContent}' ,";
@@ -110,9 +110,36 @@ if(isset($_POST['updatePost'])){
 
 	</div>
 
-	<div class="form-gorup">
+	<!-- <div class="form-gorup">
 		<label for="postAuthor">Post Author</label>
 		<input value="<?php echo $postAuthor;?>" type="text" class="form-control" name="postAuthor">
+	</div> -->
+	<div class="form-gorup">
+
+		<label for="postUser">Post Users</label>
+		
+
+		<select class="form-control" name="postUser" id="postUser">
+			<?php
+
+			$query = "SELECT * FROM users";
+	                $selectUsers = mysqli_query($connection,$query); //select all users data from database
+
+	                queryCheck($selectUsers);
+
+	                while($row = mysqli_fetch_assoc($selectUsers)){ //fetching data usin loop
+		                $userId = $row['userId'];    
+		                $userName = $row['userName'];
+
+		                echo "<option value='{$userName}'>{$userName}</option>";
+		            }
+
+		 
+			?>
+		</select>
+		
+
+
 	</div>
 
 	
