@@ -120,7 +120,11 @@ if(isset($_POST['updatePost'])){
 		
 
 		<select class="form-control" name="postUser" id="postUser">
+			<option value="<?php $postUser;?>"><?php echo $postUser;?></option>
+			
+
 			<?php
+
 
 			$query = "SELECT * FROM users";
 	                $selectUsers = mysqli_query($connection,$query); //select all users data from database
