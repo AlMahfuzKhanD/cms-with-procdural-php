@@ -31,7 +31,7 @@ if(isset($_POST['checkBoxArry'])){
 
                 while($row = mysqli_fetch_array($selectPostsQuery)){ //fetching data usin loop
                 
-                $postAuthor = $row['postAuthor'];    
+                $postUser = $row['postUser'];    
                 $postTitle = $row['postTitle'];
                 $postCatagoryId = $row['postCatagoryId'];
                 $postStatus = $row['postStatus'];
@@ -42,9 +42,9 @@ if(isset($_POST['checkBoxArry'])){
 
             } //end while
 
-            $query = "INSERT INTO posts(postCatagoryId, postTitle, postAuthor, postDate, postImage, postContent, postTags, postStatus) ";
+            $query = "INSERT INTO posts(postCatagoryId, postTitle, postUser, postDate, postImage, postContent, postTags, postStatus) ";
 
-    $query .= "VALUES({$postCatagoryId},'{$postTitle}','{$postAuthor}',now(),'{$postImage}','{$postContent}','{$postTags}','{$postStatus}' ) ";
+    $query .= "VALUES({$postCatagoryId},'{$postTitle}','{$postUser}',now(),'{$postImage}','{$postContent}','{$postTags}','{$postStatus}' ) ";
     $copyPostQuery = mysqli_query($connection, $query);
 
     queryCheck($copyPostQuery);
@@ -109,6 +109,7 @@ if(isset($_POST['checkBoxArry'])){
             while($row = mysqli_fetch_assoc($selectPosts)){ //fetching data usin loop
                 $postId = $row['postId'];
                 $postAuthor = $row['postAuthor'];    
+                $postUser = $row['postUser'];    
                 $postTitle = $row['postTitle'];
                 $postCatagoryId = $row['postCatagoryId'];
                 $postStatus = $row['postStatus'];
@@ -127,7 +128,15 @@ if(isset($_POST['checkBoxArry'])){
                 <?php /*start again php*/
 
                 echo "<td>{$postId}</td>";
-                echo "<td>{$postAuthor}</td>";
+
+                if(isset($postAuthor) && !empty($postAuthor)){
+                   echo "<td>{$postAuthor}</td>"; 
+               }else if(isset($postUser) && !empty($postUser)){
+                   echo "<td>{$postUser}</td>";
+                   }
+
+
+                
                 echo "<td>{$postTitle}</td>";
 
                 $query = "SELECT * FROM catagories WHERE catId = {$postCatagoryId}";

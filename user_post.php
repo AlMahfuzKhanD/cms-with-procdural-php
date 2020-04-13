@@ -17,17 +17,17 @@ include "includes/navigation.php";
 
                 if(isset($_GET['p_id'])){   //collecting individual post id
                     $individualPostId = $_GET['p_id'];
-                    $individualAuthor = $_GET['author'];
+                    $individualUser = $_GET['user'];
                 }?>
 
 
                 <?php
-                $query = "SELECT * FROM posts WHERE postAuthor = '{$individualAuthor}'";  //fetching data from posts table
+                $query = "SELECT * FROM posts WHERE postUser = '{$individualUser}'";  //fetching data from posts table
                 $selectAllPostsQuery = mysqli_query($connection,$query); 
                 while($row = mysqli_fetch_assoc($selectAllPostsQuery)){  //collecting all data using while loop
                         $postId = $row['postId'];
                         $postTitle = $row['postTitle'];
-                        $postAuthor = $row['postAuthor'];
+                        $postUser = $row['postUser'];
                         $postDate = $row['postDate'];
                         $postImage = $row['postImage'];
                         $postContent = substr($row['postContent'], 0,100);
@@ -50,7 +50,7 @@ include "includes/navigation.php";
                     <a href="post.php?p_id=<?php echo $postId?>"><?php echo $postTitle?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="author_post.php?author=<?php echo $postAuthor?>&p_id=<?php echo $postId?>"><?php echo $postAuthor?></a>
+                    by <a href="user_post.php?author=<?php echo $postUser?>&p_id=<?php echo $postId?>"><?php echo $postUser?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $postDate?></p>
                 <hr>

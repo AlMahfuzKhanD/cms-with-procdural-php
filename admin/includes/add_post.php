@@ -2,7 +2,7 @@
 if(isset($_POST['createPost'])){
 
 	$postTitle = $_POST['title'];
-	$postAuthor = $_POST['postAuthor'];
+	$postUser = $_POST['postUser'];
 	$postCatagoryId = $_POST['postCatagory'];
 	$postStatus = $_POST['postStatus'];
 
@@ -16,9 +16,9 @@ if(isset($_POST['createPost'])){
 
 	move_uploaded_file($postImageTemp, "../images/$postImage"); //upload image source to image folder
 
-	$query = "INSERT INTO posts(postCatagoryId, postTitle, postAuthor, postDate, postImage, postContent, postTags, postStatus) ";
+	$query = "INSERT INTO posts(postCatagoryId, postTitle, postUser, postDate, postImage, postContent, postTags, postStatus) ";
 
-	$query .= "VALUES({$postCatagoryId},'{$postTitle}','{$postAuthor}',now(),'{$postImage}','{$postContent}','{$postTags}','{$postStatus}' ) ";
+	$query .= "VALUES({$postCatagoryId},'{$postTitle}','{$postUser}',now(),'{$postImage}','{$postContent}','{$postTags}','{$postStatus}' ) ";
 	$insertPostQuery = mysqli_query($connection, $query);
 
 	queryCheck($insertPostQuery);
@@ -66,9 +66,36 @@ if(isset($_POST['createPost'])){
 
 	</div>
 
-	<div class="form-gorup">
+	<!-- <div class="form-gorup">
 		<label for="postAuthor">Post Author</label>
 		<input type="text" class="form-control" name="postAuthor">
+	</div> -->
+	<div class="form-gorup">
+
+		<label for="postUser">Post Users</label>
+		
+
+		<select class="form-control" name="postUser" id="postUser">
+			<?php
+
+			$query = "SELECT * FROM users";
+	                $selectUsers = mysqli_query($connection,$query); //select all users data from database
+
+	                queryCheck($selectUsers);
+
+	                while($row = mysqli_fetch_assoc($selectUsers)){ //fetching data usin loop
+		                $userId = $row['userId'];    
+		                $userName = $row['userName'];
+
+		                echo "<option value='{$userName}'>{$userName}</option>";
+		            }
+
+		 
+			?>
+		</select>
+		
+
+
 	</div>
 
 	<div class="form-gorup">
