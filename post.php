@@ -29,7 +29,7 @@ include "includes/navigation.php";
                 $selectAllPostsQuery = mysqli_query($connection,$query); 
                 while($row = mysqli_fetch_assoc($selectAllPostsQuery)){  //collecting all data using while loop
                         $postTitle = $row['postTitle'];
-                        $postAuthor = $row['postAuthor'];
+                        $postUser = $row['postUser'];
                         $postDate = $row['postDate'];
                         $postImage = $row['postImage'];
                         $postContent = $row['postContent'];
@@ -46,7 +46,7 @@ include "includes/navigation.php";
                     <a href="#"><?php echo $postTitle?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $postAuthor?></a>
+                    by <a href="index.php"><?php echo $postUser?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $postDate?></p>
                 <hr>
