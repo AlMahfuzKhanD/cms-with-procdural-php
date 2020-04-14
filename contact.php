@@ -18,50 +18,41 @@ $connection = mysqli_connect($dbHost,$dbUser,$dbPass,$dbName);
 
  <?php
 
+// the message
+$msg = "First line of text\nSecond line of text";
+
+// use wordwrap() if lines are longer than 70 characters
+$msg = wordwrap($msg,70);
+
+// send email
+mail("mahfuz9380@gmail.com","My subject",$msg);
+
 
 if(isset($_POST['submit'])){
 
-    $userName = $_POST['username'];
-    $userEmail = $_POST['email'];
-    $userPassword = $_POST['password'];
+    $to = "almahfuz380@gmail.com";
+    
+    //$headers = $_POST['mail'];
+    $body = $_POST['body'];
+    // use wordwrap() if lines are longer than 70 characters
+    $subject = wordwrap($_POST['subject'],70);
 
-    if(!empty($userName) && !empty($userEmail) && !empty($userPassword)){
+    if (mail($to,$subject,$body)) {
+    echo "Email successfully sent to $to ...";
+} else {
+    echo "Email sending failed...";
 
-        $userName = mysqli_real_escape_string($connection, $userName);
-        $userEmail = mysqli_real_escape_string($connection, $userEmail);
-        $userPassword = mysqli_real_escape_string($connection, $userPassword);
-
-        $userPassword = password_hash($userPassword, PASSWORD_BCRYPT, array('cost' => 12));
-
-        //##i use password_hash function, i don't need this randsalt any more.
-
-        /*$query = "SELECT randSalt FROM users";
-        $selectRandSalt = mysqli_query($connection,$query);
-        queryCheck($selectRandSalt);*/ 
-
-        /*$row = mysqli_fetch_array($selectRandSalt);
-        $salt = $row['randSalt']; //fetching randsalt from database
-        $userPassword = crypt($userPassword,$salt); //encrypt password using crypt function*/
-
-        $query = "INSERT INTO users(userRole, userName, userEmail, userPassword) ";
-
-        $query .= "VALUES('subscriber','{$userName}','{$userEmail}','{$userPassword}' ) ";
-        $registerUserQuery = mysqli_query($connection, $query);
-
-        queryCheck($registerUserQuery);
-        $messege = "Your registration has been submitted";
        
-    }else{//end nested if
-        $messege = "Fields cannot be empty";
-    }
+    }}
+
+ 
+
 
     
 
 
 
-}else{//end if
-    $messege= "";
-} 
+ 
 
  ?> 
 
@@ -80,13 +71,13 @@ if(isset($_POST['submit'])){
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Contact</h1>
-                    <form role="form" action="contact.php" method="post" id="contact-form" autocomplete="off">
-                        <h6 class="text-center"><?php echo $messege; ?></h6>
+                    <form role="form" action="" method="post" id="contact-form" autocomplete="off">
                         
-                         <div class="form-group">
+                        
+                         <!-- <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
                             <input type="email" name="email" id="email" class="form-control" placeholder="Enter your Email">
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="username" class="sr-only">Subject</label>
                             <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter your Subject">

@@ -40,6 +40,9 @@
                     <li>
                         <a href="registration.php">Registration</a>
                     </li>
+                    <li>
+                        <a href="contact.php">Contact Us</a>
+                    </li>
                     <?php
                     if(isset($_SESSION['userRole'])){ //if logged in as admin, edit post button will be shownn
                         if(isset($_GET['p_id'])){
