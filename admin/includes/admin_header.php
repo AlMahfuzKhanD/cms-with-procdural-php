@@ -53,6 +53,8 @@ if(!isset($_SESSION['userRole'])){
     <script type="text/javascript" src="../js/chart_loader.js"></script>
     
     <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
+    
+    <script src="js/jquery.js"></script>
 
     
 
