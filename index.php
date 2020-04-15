@@ -88,7 +88,10 @@ include "includes/navigation.php";
 
                 <hr>
 
-                <?php    } } ?>
+                <?php    }else{
+                    echo "<h1>No Posts Here</h1>";
+                    break; // break while
+                } } //end while ?>
 
                 
 
