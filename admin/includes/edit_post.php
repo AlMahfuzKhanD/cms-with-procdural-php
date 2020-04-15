@@ -95,11 +95,18 @@ if(isset($_POST['updatePost'])){
 
 	                queryCheck($selectCatagories);
 
-	                while($row = mysqli_fetch_assoc($selectCatagories)){ //fetching data usin loop
+	                while($row = mysqli_fetch_assoc($selectCatagories)){ //fetching data using loop
 		                $catId = $row['catId'];    
 		                $catTitle = $row['catTitle'];
 
-		                echo "<option value='{$catId}'>{$catTitle}</option>";
+		                
+
+		                if($catId == $postCatagoryId){
+		                	
+		                echo "<option selected value='{$catId}'>{$catTitle}</option>";
+		                }else{
+		                	echo "<option value='{$catId}'>{$catTitle}</option>";
+		                }
 		            }
 
 		 
@@ -120,7 +127,7 @@ if(isset($_POST['updatePost'])){
 		
 
 		<select class="form-control" name="postUser" id="postUser">
-			<option value="<?php $postUser;?>"><?php echo $postUser;?></option>
+			
 			
 
 			<?php
@@ -135,7 +142,13 @@ if(isset($_POST['updatePost'])){
 		                $userId = $row['userId'];    
 		                $userName = $row['userName'];
 
-		                echo "<option value='{$userName}'>{$userName}</option>";
+		                
+		                if($userName == $postUser){
+		                	
+		                echo "<option selected value='{$userName}'>{$userName}</option>";
+		                }else{
+		                	echo "<option value='{$userName}'>{$userName}</option>";
+		                }
 		            }
 
 		 
