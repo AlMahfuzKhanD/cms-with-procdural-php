@@ -18,9 +18,18 @@ include "includes/navigation.php";
 
                 if(isset($_GET['catagory'])){
                     $postCatId = $_GET['catagory'];
-                }
-                $query = "SELECT * FROM posts WhERE postCatagoryId = $postCatId";  //fetching data from posts table
-                $selectAllPostsQuery = mysqli_query($connection,$query); 
+                
+                $query = "SELECT * FROM posts WhERE postCatagoryId = $postCatId AND postStatus = 'published'";  //fetching data from posts table
+                $selectAllPostsQuery = mysqli_query($connection,$query);
+
+                if(mysqli_num_rows($selectAllPostsQuery) < 1){
+
+                    echo "<h1 class='text-center'>No Published Posts</h1>";
+
+
+                } else{
+
+
                 while($row = mysqli_fetch_assoc($selectAllPostsQuery)){  //collecting all data using while loop
                         $postId = $row['postId'];
                         $postTitle = $row['postTitle'];
@@ -52,7 +61,9 @@ include "includes/navigation.php";
 
                 <hr>
 
-                <?php    } ?>
+                <?php    }}}else{
+                    header("Location: index.php");
+                } ?>
 
                 
 
