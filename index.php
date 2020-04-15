@@ -36,14 +36,26 @@ include "includes/navigation.php";
 
                 }
 
+                if(isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'Admin'){
+                    $postQueryCount = "SELECT * FROM posts";
+                }else{
+                    $postQueryCount = "SELECT * FROM posts  WHERE postStatus = 'published'";
+                }
 
-                $postQueryCount = "SELECT * FROM posts";
+
+                //$postQueryCount = "SELECT * FROM posts";
                 $findCountQuery = mysqli_query($connection,$postQueryCount);
                 $count = mysqli_num_rows($findCountQuery);
                 $count = ceil($count/$per_page); //ceil used to round up
 
 
                 //end code for pagination
+                if($count < 1){
+
+                    echo "<h1 class='text-center'>No Published Posts</h1>";
+
+
+                } else{
 
 
 
@@ -58,7 +70,7 @@ include "includes/navigation.php";
                         $postContent = substr($row['postContent'], 0,100);
                         $postStatus = $row['postStatus'];
 
-                        if($postStatus == 'published'){
+                        
                             
 
 
@@ -88,10 +100,7 @@ include "includes/navigation.php";
 
                 <hr>
 
-                <?php    }else{
-                    echo "<h1 class='text-center'>No Published Posts</h1>";
-                    break; // break while
-                } } //end while ?>
+                <?php    }} //end while ?>
 
                 
 
@@ -111,8 +120,7 @@ include "includes/sidebar.php";
         <!-- /.row -->
 
         <hr>
-        <?php
-        if($postStatus == 'published'){ ?>
+        
         <ul class="pager">
         
             <?php
@@ -127,7 +135,7 @@ include "includes/sidebar.php";
 
 
             ?>
-        </ul> <?php } ?>
+        </ul> 
 <?php
 include "includes/footer.php"; 
 ?>       

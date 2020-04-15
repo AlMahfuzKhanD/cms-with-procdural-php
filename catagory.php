@@ -18,8 +18,14 @@ include "includes/navigation.php";
 
                 if(isset($_GET['catagory'])){
                     $postCatId = $_GET['catagory'];
+
+                if(isset($_SESSION['userRole']) && $_SESSION['userRole'] == 'Admin'){
+                    $query = "SELECT * FROM posts WHERE postCatagoryId = $postCatId";
+                }else{
+                    $query = "SELECT * FROM posts WHERE postCatagoryId = $postCatId AND postStatus = 'published'";
+                }
                 
-                $query = "SELECT * FROM posts WhERE postCatagoryId = $postCatId AND postStatus = 'published'";  //fetching data from posts table
+                //$query = "SELECT * FROM posts WhERE postCatagoryId = $postCatId AND postStatus = 'published'";  //fetching data from posts table
                 $selectAllPostsQuery = mysqli_query($connection,$query);
 
                 if(mysqli_num_rows($selectAllPostsQuery) < 1){
