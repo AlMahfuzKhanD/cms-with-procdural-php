@@ -108,7 +108,10 @@ include "includes/sidebar.php";
         <!-- /.row -->
 
         <hr>
+        <?php
+        if($postStatus == 'published'){ ?>
         <ul class="pager">
+        
             <?php
             for($i = 1;$i<=$count;$i++){
                 if($i == $page){
@@ -121,7 +124,7 @@ include "includes/sidebar.php";
 
 
             ?>
-        </ul>
+        </ul> <?php } ?>
 <?php
 include "includes/footer.php"; 
 ?>       
