@@ -63,8 +63,8 @@ if(isset($_POST['submit'])){
 
     foreach ($error as $key => $value) {
         if(empty($value)){ // if empty that means no error
-            registerUser($userName,$userEmail,$userPassword);
-            loginUser($userName,$userPassword);
+            //registerUser($userName,$userEmail,$userPassword);
+            //loginUser($userName,$userPassword);
         }
     } //foreach
 
@@ -91,11 +91,18 @@ if(isset($_POST['submit'])){
                         <!-- <h6 class="text-center"><?php //echo $messege; ?></h6> -->
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
-                            <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username">
+                            <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username" autocomplete="on"
+                            value="<?php echo isset($userName) ? $userName : ''?>" 
+
+                            ><!--echo isset($userName) ? $userName : '' confirms if error, user does not need to ty again -->
                         </div>
                          <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com"
+                            autocomplete="on"
+                            value="<?php echo isset($userEmail) ? $userEmail : ''?>"
+
+                            > <!--echo isset($userEmail) ? $userEmail : '' confirms if error, user does not need to ty again -->
                         </div>
                          <div class="form-group">
                             <label for="password" class="sr-only">Password</label>
