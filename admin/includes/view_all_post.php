@@ -171,10 +171,24 @@ if(isset($_POST['checkBoxArry'])){
 
 
                 echo "<td>{$postDate}</td>";
-                echo "<td><a href='../post.php?p_id={$postId}'>View Post</a></td>";
-                echo "<td><a href='posts.php?source=editPost&p_id={$postId}'>Edit</a></td>";
+                echo "<td><a class='btn btn-primary' href='../post.php?p_id={$postId}'>View Post</a></td>";
+                echo "<td><a class='btn btn-info' href='posts.php?source=editPost&p_id={$postId}'>Edit</a></td>";
                 //echo "<td><a onClick=\"javascript: return confirm('Are you sure you want to delet?'); \" href='posts.php?delete={$postId}'>Delete</a></td>";
-                echo "<td><a rel='$postId' href='javascript:void(0)' class='delete_link'>Delete</a></td>";
+                ?> 
+
+                <!-- <form action="" method="post">
+                    <input type="hidden" name="postId" value="<?php //echo $postId ?>">
+                    <?php //echo "<td><input class='btn btn-danger' type='submit' name='delete' value='Delete'></td>"; ?>
+                </form> -->
+
+
+                <?php
+
+
+
+                echo "<td><a rel='$postId' href='javascript:void(0)' class='delete_link btn btn-danger'>Delete</a></td>";
+
+
                 echo "<td><a href='posts.php?reset={$postId}'>{$postViewsCount}</a></td>";
                 echo "</tr>"; 
 
