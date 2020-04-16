@@ -7,6 +7,8 @@
 
 
 
+
+
 	function queryCheck($result){
 		global $connection;
 		if(!$result){
@@ -104,9 +106,37 @@ function usersOnline(){
     } //end usersOnline
 
     usersOnline(); // calling function
-    
 
 
+// record count for counting data of the table. It shows in admin chart
+function recordCount($table){
+    global $connection;
+    $query = "SELECT * FROM " . $table;
+    $selectAllPosts = mysqli_query($connection,$query);
+    $result = mysqli_num_rows($selectAllPosts);
+    queryCheck($result);
+    return $result;
+}
+
+function checkStatus($table,$columnName,$status){
+
+    global $connection;
+    $query = "SELECT * FROM $table WHERE $columnName = '$status'";
+    $result = mysqli_query($connection,$query);
+    queryCheck($result);
+    return mysqli_num_rows($result);
+
+}
+
+function checkUserRole($table,$columnName,$role){
+
+    global $connection;
+    $query = "SELECT * FROM $table WHERE $columnName = '$role'";
+    $result = mysqli_query($connection,$query);
+    queryCheck($result);
+    return mysqli_num_rows($result);
+
+}
 
 
 

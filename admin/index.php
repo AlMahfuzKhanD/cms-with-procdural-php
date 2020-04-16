@@ -40,12 +40,8 @@
                         <i class="fa fa-file-text fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <?php
-                         $query = "SELECT * FROM posts";
-                         $selectAllPosts = mysqli_query($connection,$query);
-                         $postCounts = mysqli_num_rows($selectAllPosts);
-                        ?>
-                  <div class='huge'><?php echo $postCounts;?></div>
+                        
+                  <div class='huge'><?php echo $postCounts = recordCount('posts');?></div>
                         <div>Posts</div>
                     </div>
                 </div>
@@ -67,12 +63,8 @@
                         <i class="fa fa-comments fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <?php
-                         $query = "SELECT * FROM comments";
-                         $selectAllComments = mysqli_query($connection,$query);
-                         $commentCounts = mysqli_num_rows($selectAllComments);
-                        ?>
-                     <div class='huge'><?php echo $commentCounts;?></div>
+            
+                     <div class='huge'><?php echo $commentCounts = recordCount('comments');?></div>
                       <div>Comments</div>
                     </div>
                 </div>
@@ -94,12 +86,8 @@
                         <i class="fa fa-user fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <?php
-                         $query = "SELECT * FROM users";
-                         $selectAllUsers = mysqli_query($connection,$query);
-                         $userCounts = mysqli_num_rows($selectAllUsers);
-                        ?>
-                    <div class='huge'><?php echo $userCounts;?></div>
+                        
+                    <div class='huge'><?php echo $userCounts = recordCount('users');?></div>
                         <div> Users</div>
                     </div>
                 </div>
@@ -121,12 +109,8 @@
                         <i class="fa fa-list fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <?php
-                         $query = "SELECT * FROM catagories";
-                         $selectAllCatagories = mysqli_query($connection,$query);
-                         $catagoryCounts = mysqli_num_rows($selectAllCatagories);
-                        ?>
-                        <div class='huge'><?php echo $catagoryCounts;?></div>
+                    
+                        <div class='huge'><?php echo $catagoryCounts = recordCount('catagories');?></div>
                          <div>Categories</div>
                     </div>
                 </div>
@@ -145,33 +129,26 @@
 
 
 
-                 <?php
-                        //draft posts
-                         $query = "SELECT * FROM posts WHERE postStatus = 'draft'";
-                         $selectAllDraftPosts = mysqli_query($connection,$query);
-                         $draftPostCounts = mysqli_num_rows($selectAllDraftPosts);
-                         //Active posts
-                         $query = "SELECT * FROM posts WHERE postStatus = 'published'";
-                         $selectAllActivPosts = mysqli_query($connection,$query);
-                         $activPostCounts = mysqli_num_rows($selectAllActivPosts);
-                        //approved comments 
-                         $query = "SELECT * FROM comments WHERE commentStatus = 'Approved'";
-                         $selectAllApprovedComments = mysqli_query($connection,$query);
-                         $approvedCommentCounts = mysqli_num_rows($selectAllApprovedComments);
-                         //Denied comments
+ <?php
+    //draft posts                        
+    $draftPostCounts = checkStatus('posts','postStatus','draft');
+    //Active posts
+    
+    $activPostCounts = checkStatus('posts','postStatus','published');
+    //approved comments 
+     
+    $approvedCommentCounts = checkStatus('comments','commentStatus','Approved');
+    //Denied comments
 
-                         $query = "SELECT * FROM comments WHERE commentStatus = 'Denied'";
-                         $AllDeniedComments = mysqli_query($connection,$query);
-                         $deniedCommentCounts = mysqli_num_rows($AllDeniedComments);
-                        // admin users
-                         $query = "SELECT * FROM users WHERE userRole = 'Admin'";
-                         $selectAllAdmin = mysqli_query($connection,$query);
-                         $adminUserCounts = mysqli_num_rows($selectAllAdmin);
-                         // subscriber users
-                         $query = "SELECT * FROM users WHERE userRole = 'Subscriber'";
-                         $selectAllSubscriber = mysqli_query($connection,$query);
-                         $subscriberUserCounts = mysqli_num_rows($selectAllSubscriber);
-                ?>
+     
+    $deniedCommentCounts = checkStatus('comments','commentStatus','Denied');
+    // admin users
+     
+    $adminUserCounts = checkUserRole('users','userRole','Admin');
+    // subscriber users
+     
+    $subscriberUserCounts = checkUserRole('users','userRole','Subscriber');
+?>
 
 
 
