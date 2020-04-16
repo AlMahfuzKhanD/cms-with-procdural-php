@@ -1,4 +1,6 @@
+<?php ob_start(); ?>
 <?php
+
 $db['dbHost'] = "localhost";    //for better security the data of database is sent as a constant data using array
 $db['dbUser'] = "root";
 $db['dbPass'] = "";
