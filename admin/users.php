@@ -1,7 +1,17 @@
 <?php include "includes/admin_header.php"?>
 
+<?php
+if(!isAdmin($_SESSION['userName'])){ //checking if user admin or not
+    header("Location: index.php");
+} 
+?> 
+
+
+
 
     <div id="wrapper">
+
+
  
         <!-- Navigation -->
 

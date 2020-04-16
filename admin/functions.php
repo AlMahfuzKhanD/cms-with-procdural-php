@@ -138,6 +138,22 @@ function checkUserRole($table,$columnName,$role){
 
 }
 
+function isAdmin($username = ''){
+    global $connection;
+    $query = "SELECT userRole FROM users WHERE userName = '$username'";
+    $result = mysqli_query($connection,$query);
+    queryCheck($result);
+
+    $row = mysqli_fetch_array($result);
+
+    if($row['userRole'] == 'Admin'){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
 
 
 
