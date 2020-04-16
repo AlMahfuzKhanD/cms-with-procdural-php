@@ -14,54 +14,61 @@ $connection = mysqli_connect($dbHost,$dbUser,$dbPass,$dbName);
 
 ?>
  <?php  include "includes/header.php"; ?>
+
  
 
  <?php
 
 
 if(isset($_POST['submit'])){
+    
+    $userName = trim($_POST['username']);
+    $userEmail = trim($_POST['email']);
+    $userPassword = trim($_POST['password']);
 
-    $userName = $_POST['username'];
-    $userEmail = $_POST['email'];
-    $userPassword = $_POST['password'];
+    /****  validation  ****/
 
-    if(!empty($userName) && !empty($userEmail) && !empty($userPassword)){
+    $error = [
 
-        $userName = mysqli_real_escape_string($connection, $userName);
-        $userEmail = mysqli_real_escape_string($connection, $userEmail);
-        $userPassword = mysqli_real_escape_string($connection, $userPassword);
+        'username' =>  '',
+        'email' =>  '',
+        'password' =>  ''
 
-        $userPassword = password_hash($userPassword, PASSWORD_BCRYPT, array('cost' => 12));
 
-        //##i use password_hash function, i don't need this randsalt any more.
+    ];
 
-        /*$query = "SELECT randSalt FROM users";
-        $selectRandSalt = mysqli_query($connection,$query);
-        queryCheck($selectRandSalt);*/ 
-
-        /*$row = mysqli_fetch_array($selectRandSalt);
-        $salt = $row['randSalt']; //fetching randsalt from database
-        $userPassword = crypt($userPassword,$salt); //encrypt password using crypt function*/
-
-        $query = "INSERT INTO users(userRole, userName, userEmail, userPassword) ";
-
-        $query .= "VALUES('subscriber','{$userName}','{$userEmail}','{$userPassword}' ) ";
-        $registerUserQuery = mysqli_query($connection, $query);
-
-        queryCheck($registerUserQuery);
-        $messege = "Your registration has been submitted";
-       
-    }else{//end nested if
-        $messege = "Fields cannot be empty";
+    if(strlen($userName) <4){
+        $error['username'] = 'Username needs to be longer than 4 charackter';
     }
 
-    
+    if($userName ==''){
+        $error['username'] = 'Username cannot be empty';
+    }
 
+    if(userNameExists($userName)){
+        $error['username'] = 'Username already Exists';
+    }
 
+    if($userEmail ==''){
+        $error['email'] = 'Email cannot be empty';
+    }
 
-}else{//end if
-    $messege= "";
-} 
+    if(userEmailExists($userEmail)){
+        $error['email'] = 'Email already Exists, <a href="index.php">Please Login</a>';
+    }
+
+    if($userPassword ==''){
+        $error['password'] = 'password cannot be empty';
+    }
+
+    foreach ($error as $key => $value) {
+        if(empty($value)){ // if empty that means no error
+            registerUser($userName,$userEmail,$userPassword);
+            loginUser($userName,$userPassword);
+        }
+    } //foreach
+
+} //end if
 
  ?> 
 
@@ -81,7 +88,7 @@ if(isset($_POST['submit'])){
                 <div class="form-wrap">
                 <h1>Register</h1>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
-                        <h6 class="text-center"><?php echo $messege; ?></h6>
+                        <!-- <h6 class="text-center"><?php //echo $messege; ?></h6> -->
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username">

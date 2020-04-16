@@ -1,20 +1,24 @@
 <?php
 
-    function escape($string){
-        global $connection;
-        return mysqli_real_escape_string($connection,trim($string));
+function redirect($location){
+    return header("Location:" . $location);
+}
+
+function escape($string){
+    global $connection;
+    return mysqli_real_escape_string($connection,trim($string));
+}
+
+
+
+
+
+function queryCheck($result){
+	global $connection;
+	if(!$result){
+	die("QUERY FAILED" . mysqli_error($connection));
     }
-
-
-
-
-
-	function queryCheck($result){
-		global $connection;
-		if(!$result){
-		die("QUERY FAILED" . mysqli_error($connection));
-	}
-	}
+}
 
 	function insert_catagories(){
 	global $connection;
@@ -138,9 +142,9 @@ function checkUserRole($table,$columnName,$role){
 
 }
 
-function isAdmin($username = ''){
+function isAdmin($userName = ''){
     global $connection;
-    $query = "SELECT userRole FROM users WHERE userName = '$username'";
+    $query = "SELECT userRole FROM users WHERE userName = '$userName'";
     $result = mysqli_query($connection,$query);
     queryCheck($result);
 
@@ -153,6 +157,8 @@ function isAdmin($username = ''){
     }
 
 }
+
+
 
 
 
