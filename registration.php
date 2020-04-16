@@ -20,13 +20,13 @@ $connection = mysqli_connect($dbHost,$dbUser,$dbPass,$dbName);
  <?php
 
 
-if(isset($_POST['submit'])){
+if($_SERVER['REQUEST_METHOD'] == "POST"){
     
     $userName = trim($_POST['username']);
     $userEmail = trim($_POST['email']);
     $userPassword = trim($_POST['password']);
 
-    /****  validation  ****/
+    /****  validating error  ****/
 
     $error = [
 
@@ -58,15 +58,20 @@ if(isset($_POST['submit'])){
     }
 
     if($userPassword ==''){
-        $error['password'] = 'password cannot be empty';
+        $error['password'] = 'Password cannot be empty';
     }
 
     foreach ($error as $key => $value) {
         if(empty($value)){ // if empty that means no error
-            //registerUser($userName,$userEmail,$userPassword);
-            //loginUser($userName,$userPassword);
+            
+            unset($error[$key]);
         }
     } //foreach
+
+    if(empty($error)){
+        registerUser($userName,$userEmail,$userPassword);
+        loginUser($userName,$userPassword);
+    }
 
 } //end if
 
@@ -92,24 +97,25 @@ if(isset($_POST['submit'])){
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username" autocomplete="on"
-                            value="<?php echo isset($userName) ? $userName : ''?>" 
+                            value="<?php echo isset($userName) ? $userName : ''?>"><!--echo isset($userName) ? $userName : '' confirms if error, user does not need to ty again -->
 
-                            ><!--echo isset($userName) ? $userName : '' confirms if error, user does not need to ty again -->
+                            <p class="text-center"><?php echo isset($error['username']) ? $error['username'] : ''?></p> <!-- error messege -->
                         </div>
                          <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
                             <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com"
                             autocomplete="on"
-                            value="<?php echo isset($userEmail) ? $userEmail : ''?>"
+                            value="<?php echo isset($userEmail) ? $userEmail : ''?>"> <!--echo isset($userEmail) ? $userEmail : '' confirms if error, user does not need to ty again -->
+                            <p class="text-center"><?php echo isset($error['email']) ? $error['email'] : ''?></p> <!-- error messege -->
 
-                            > <!--echo isset($userEmail) ? $userEmail : '' confirms if error, user does not need to ty again -->
                         </div>
                          <div class="form-group">
-                            <label for="password" class="sr-only">Password</label>
+                         <label for="password" class="sr-only">Password</label>
                             <input type="password" name="password" id="key" class="form-control" placeholder="Password">
+                            <p class="text-center"><?php echo isset($error['password']) ? $error['password'] : ''?></p> <!-- error messege -->
                         </div>
                 
-                        <input type="submit" name="submit" id="btn-login" class="btn btn-success btn-lg btn-block" value="Register">
+                        <input type="submit" name="register" id="btn-login" class="btn btn-success btn-lg btn-block" value="Register">
                     </form>
                  
                 </div>
