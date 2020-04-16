@@ -45,19 +45,16 @@ if(isset($_POST['checkBoxArry'])){
 
             $query = "INSERT INTO posts(postCatagoryId, postTitle, postUser, postDate, postImage, postContent, postTags, postStatus) ";
 
-    $query .= "VALUES({$postCatagoryId},'{$postTitle}','{$postUser}',now(),'{$postImage}','{$postContent}','{$postTags}','{$postStatus}' ) ";
-    $copyPostQuery = mysqli_query($connection, $query);
+            $query .= "VALUES({$postCatagoryId},'{$postTitle}','{$postUser}',now(),'{$postImage}','{$postContent}','{$postTags}','{$postStatus}' ) ";
+            $copyPostQuery = mysqli_query($connection, $query);
 
-    queryCheck($copyPostQuery);
+            queryCheck($copyPostQuery);
                 break;
             
             default:
                 
                 break;
         } // end of switch
-
-
-
     } //end foreach
 } //end if
 
@@ -83,46 +80,50 @@ if(isset($_POST['checkBoxArry'])){
 
 
 
-            <thead>
-                <tr>
-                    <th><input id="selectAllBoxes" type="checkbox"></th>
-                    <th>Id</th>
-                    <th>Author</th>
-                    <th>Title</th>
-                    <th>Catagory</th>
-                    <th>Status</th>
-                    <th>Image</th>
-                    <th>Tags</th>
-                    <th>Comments</th>
-                    <th>Date</th>
-                    <th>View Posts</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                    <th>Views</th>
-                </tr>
-            </thead>
-        <tbody>
-            <?php 
+    <thead>
+        <tr>
+            <th><input id="selectAllBoxes" type="checkbox"></th>
+            <th>Id</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Catagory</th>
+            <th>Status</th>
+            <th>Image</th>
+            <th>Tags</th>
+            <th>Comments</th>
+            <th>Date</th>
+            <th>View Posts</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Views</th>
+        </tr>
+    </thead>
+<tbody>
+<?php
 
-            $query = "SELECT * FROM posts ORDER BY postId DESC";
-            $selectPosts = mysqli_query($connection,$query); //select all postsdata from database
+//$query = "SELECT * FROM posts ORDER BY postId DESC";
 
-            while($row = mysqli_fetch_assoc($selectPosts)){ //fetching data usin loop
-                $postId = $row['postId'];
-                $postAuthor = $row['postAuthor'];    
-                $postUser = $row['postUser'];    
-                $postTitle = $row['postTitle'];
-                $postCatagoryId = $row['postCatagoryId'];
-                $postStatus = $row['postStatus'];
-                $postImage = $row['postImage'];
-                $postTags = $row['postTags'];
-                $postCommentCount = $row['postCommentCount'];
-                $postDate = $row['postDate'];
-                $postViewsCount = $row['postViewsCount'];
-                //$postContent = $row['postContent'];
+    $query = "SELECT posts.postId, posts.postAuthor, posts.postUser, posts.postTitle, posts.postCatagoryId, posts.postStatus, posts.postImage, posts.postTags, posts.postCommentCount, posts.postDate, posts.postViewsCount, catagories.catId, catagories.catTitle FROM posts LEFT JOIN catagories ON posts.postCatagoryId = catagories.catId ORDER BY posts.postId DESC";
+    $selectPosts = mysqli_query($connection,$query); //select all postsdata from database
 
-                echo "<tr>"; 
-                ?> <!-- break Php -->
+    while($row = mysqli_fetch_assoc($selectPosts)){ //fetching data usin loop
+        $postId = $row['postId'];
+        $postAuthor = $row['postAuthor'];    
+        $postUser = $row['postUser'];    
+        $postTitle = $row['postTitle'];
+        $postCatagoryId = $row['postCatagoryId'];
+        $postStatus = $row['postStatus'];
+        $postImage = $row['postImage'];
+        $postTags = $row['postTags'];
+        $postCommentCount = $row['postCommentCount'];
+        $postDate = $row['postDate'];
+        $postViewsCount = $row['postViewsCount'];
+        $catId = $row['catId'];
+        $catTitle = $row['catTitle'];
+                
+
+        echo "<tr>"; 
+        ?> <!-- break Php -->
 
 <td><input class='checkBoxes' type='checkbox' name='checkBoxArry[]' value='<?php echo $postId ?>'></td>
 
@@ -139,17 +140,19 @@ if(isset($_POST['checkBoxArry'])){
 
                 
                 echo "<td>{$postTitle}</td>";
+/********* posts and catagories table joined so this code is not needed anymore*******/
+// $query = "SELECT * FROM catagories WHERE catId = {$postCatagoryId}";
+// $selectCatagoriesUpdate = mysqli_query($connection,$query); //select all catagory data from database
 
-                $query = "SELECT * FROM catagories WHERE catId = {$postCatagoryId}";
-                $selectCatagoriesUpdate = mysqli_query($connection,$query); //select all catagory data from database
+//     while($row = mysqli_fetch_assoc($selectCatagoriesUpdate)){ //fetching data usin loop
+//         $catId = $row['catId'];    
+//         $catTitle = $row['catTitle'];
 
-                while($row = mysqli_fetch_assoc($selectCatagoriesUpdate)){ //fetching data usin loop
-                    $catId = $row['catId'];    
-                    $catTitle = $row['catTitle'];
 
+//     echo "<td>{$catTitle}</td>";
+// }
 
                 echo "<td>{$catTitle}</td>";
-            }
 
 
                 echo "<td>{$postStatus}</td>";
